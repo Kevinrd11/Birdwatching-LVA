@@ -203,7 +203,7 @@ export default function MonthlyFeaturedBirds({
         />
         <div className="pointer-events-none absolute inset-0 bg-[#07180f]/85" aria-hidden="true" />
         {/* Degradado de salida hacia la sección clara siguiente, para que el cambio sea sutil al hacer scroll. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-white" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#f8f3e8]" aria-hidden="true" />
 
         <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-amber-100 backdrop-blur-sm">

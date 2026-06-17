@@ -635,27 +635,40 @@ export default function Home() {
 
       <MonthlyFeaturedBirds language={language} whatsappNumber={whatsappNumber} variant="cta" />
 
-      <section id="incluye" className="section bg-white" aria-labelledby="included-title">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_.9fr] lg:px-8">
-          <div className="reveal">
+      <section id="incluye" className="section" aria-labelledby="included-title">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center reveal">
             <p className="eyebrow text-emerald-900">{t.includedEyebrow}</p>
             <h2 id="included-title" className="section-title">{t.includedTitle}</h2>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {t.included.map((item) => (
-                <div key={item} className="rounded-3xl border border-emerald-950/10 bg-[#f8f3e8] p-5 shadow-sm">
-                  <span className="text-emerald-900">✓</span>
-                  <p className="mt-3 font-semibold leading-7 text-slate-800">{item}</p>
-                </div>
-              ))}
-            </div>
           </div>
-          <div className="premium-card sticky top-28 h-fit bg-emerald-950 text-white reveal reveal-delay">
-            <p className="eyebrow text-amber-200">{t.conversionEyebrow}</p>
-            <h3 className="mt-4 font-serif text-4xl font-bold">{t.conversionTitle}</h3>
-            <p className="mt-5 leading-7 text-white/76">{t.conversionDescription}</p>
-            <a href={whatsappUrl} className="btn mt-8" target="_blank" rel="noreferrer">
-              {t.reserveNow}
-            </a>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {t.included.map((item) => (
+              <div key={item} className="rounded-3xl border border-emerald-950/10 bg-white p-5 shadow-sm reveal">
+                <span className="text-emerald-900">✓</span>
+                <p className="mt-3 font-semibold leading-7 text-slate-800">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Oferta destacada: en su propia sección para que resalte el llamado a reservar. */}
+      <section id="oferta" className="section" aria-labelledby="offer-title">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="premium-card relative overflow-hidden bg-emerald-950 text-center text-white reveal sm:p-12">
+            <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-amber-300/20 blur-3xl" aria-hidden="true" />
+            <div className="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-teal-300/15 blur-3xl" aria-hidden="true" />
+
+            <div className="relative mx-auto max-w-2xl">
+              <p className="eyebrow text-amber-200">{t.conversionEyebrow}</p>
+              <h2 id="offer-title" className="mt-4 font-serif text-3xl font-black leading-tight tracking-tight sm:text-4xl">
+                {t.conversionTitle}
+              </h2>
+              <p className="mt-5 text-lg leading-8 text-white/80">{t.conversionDescription}</p>
+              <a href={whatsappUrl} className="btn mt-8" target="_blank" rel="noreferrer">
+                {t.reserveNow}
+              </a>
+            </div>
           </div>
         </div>
       </section>

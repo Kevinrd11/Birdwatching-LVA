@@ -6,9 +6,9 @@ export const siteConfig = {
   name: 'La Vieja Adventures',
   location: 'Sucre, San Carlos, Alajuela, Costa Rica',
   // Número en formato internacional sin "+" ni espacios (para enlaces wa.me).
-  whatsappNumber: '50687654321',
+  whatsappNumber: '50684519537',
   // Versión legible para mostrar en pantalla.
-  phoneDisplay: '+506 8765-4321',
+  phoneDisplay: '+506 8451-9537',
   email: 'info@lavieja-adventures.com',
   url: 'https://lavieja-adventures.com',
 } as const;
