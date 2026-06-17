@@ -14,24 +14,26 @@ type ShareableTourSummaryProps = {
 function BirdList({ title, birds, emptyText }: { title: string; birds: BirdSpecies[]; emptyText: string }) {
   return (
     <div>
-      <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-200">{title}</p>
+      <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-300">{title}</p>
       {birds.length > 0 ? (
         <ul className="mt-2 space-y-1">
           {birds.map((bird) => (
-            <li key={bird.id} className="text-sm leading-6 text-white/85">
+            <li key={bird.id} className="text-sm leading-6 text-white">
               {bird.commonNameEs}
-              <span className="text-white/45"> · {bird.commonNameEn}</span>
+              <span className="text-emerald-200"> · {bird.commonNameEn}</span>
             </li>
           ))}
         </ul>
       ) : (
-        <p className="mt-2 text-sm italic text-white/50">{emptyText}</p>
+        <p className="mt-2 text-sm italic text-emerald-200/90">{emptyText}</p>
       )}
     </div>
   );
 }
 
-// Bloque visual diseñado para verse bien al exportarse como imagen o PDF.
+// Bloque visual del recuerdo digital. Diseñado para verse idéntico en pantalla y
+// al exportarse como imagen/PDF: usa solo colores sólidos (sin filtros blur ni
+// fondos translúcidos), que html-to-image rasteriza de forma fiable.
 const ShareableTourSummary = forwardRef<HTMLDivElement, ShareableTourSummaryProps>(function ShareableTourSummary(
   { counts, seenBirds, photographedBirds, dateLabel },
   ref
@@ -41,12 +43,13 @@ const ShareableTourSummary = forwardRef<HTMLDivElement, ShareableTourSummaryProp
       ref={ref}
       className="relative mx-auto w-full max-w-2xl overflow-hidden rounded-[2rem] bg-[#07180f] p-8 text-white sm:p-10"
     >
+      {/* Acentos decorativos sólidos (sin blur, para una exportación fiel). */}
       <div
-        className="pointer-events-none absolute right-0 top-0 h-48 w-48 rounded-full bg-teal-400/20 blur-3xl"
+        className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#0f3d28]"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute bottom-0 left-0 h-48 w-48 rounded-full bg-amber-300/15 blur-3xl"
+        className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-[#123b27]"
         aria-hidden="true"
       />
 
@@ -57,36 +60,35 @@ const ShareableTourSummary = forwardRef<HTMLDivElement, ShareableTourSummaryProp
             alt="La Vieja Adventures Birdwatching"
             width={64}
             height={64}
-            crossOrigin="anonymous"
             className="h-16 w-16 rounded-full border border-white/15 bg-[#f8f3e8] object-cover"
           />
           <div>
             <h2 className="font-serif text-3xl font-black leading-none tracking-tight">
               Mi experiencia Birdwatching LVA
             </h2>
-            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-100">
+            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-200">
               Sucre, San Carlos, Costa Rica
             </p>
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-2 border-y border-white/10 py-4">
-          <p className="font-serif text-xl italic text-amber-200">“El privilegio de la primera mirada”</p>
-          <p className="text-sm font-bold text-white/70">{dateLabel}</p>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-2 border-y border-emerald-200/20 py-4">
+          <p className="font-serif text-xl italic text-amber-300">“El privilegio de la primera mirada”</p>
+          <p className="text-sm font-bold text-emerald-100">{dateLabel}</p>
         </div>
 
         <div className="mt-6 grid grid-cols-3 gap-3 text-center">
-          <div className="rounded-2xl bg-white/10 p-4">
+          <div className="rounded-2xl bg-[#0f2a1c] p-4">
             <strong className="block font-serif text-3xl font-black text-emerald-300">{counts.seen}</strong>
-            <span className="mt-1 block text-xs font-bold uppercase tracking-wide text-white/70">Vistas</span>
+            <span className="mt-1 block text-xs font-bold uppercase tracking-wide text-emerald-100">Vistas</span>
           </div>
-          <div className="rounded-2xl bg-white/10 p-4">
+          <div className="rounded-2xl bg-[#0f2a1c] p-4">
             <strong className="block font-serif text-3xl font-black text-teal-300">{counts.heard}</strong>
-            <span className="mt-1 block text-xs font-bold uppercase tracking-wide text-white/70">Escuchadas</span>
+            <span className="mt-1 block text-xs font-bold uppercase tracking-wide text-emerald-100">Escuchadas</span>
           </div>
-          <div className="rounded-2xl bg-white/10 p-4">
+          <div className="rounded-2xl bg-[#0f2a1c] p-4">
             <strong className="block font-serif text-3xl font-black text-amber-300">{counts.photographed}</strong>
-            <span className="mt-1 block text-xs font-bold uppercase tracking-wide text-white/70">Fotografiadas</span>
+            <span className="mt-1 block text-xs font-bold uppercase tracking-wide text-emerald-100">Fotografiadas</span>
           </div>
         </div>
 

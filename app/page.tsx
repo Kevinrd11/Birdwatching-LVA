@@ -2,9 +2,10 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import MonthlyFeaturedBirds from '@/components/MonthlyFeaturedBirds';
-import Gallery from '@/components/Gallery';
 import { siteConfig, whatsappLink } from '@/lib/config';
+import { galleryImages, birdwatchingImage } from '@/data/galleryImages';
 
 type Language = 'es' | 'en';
 
@@ -16,165 +17,7 @@ type GalleryImage = {
 };
 
 const whatsappNumber = siteConfig.whatsappNumber;
-const birdwatchingImage = (fileName: string) => `/images/birdwatching/${fileName}`;
 const heroImage = birdwatchingImage('ade4cbcb-0faa-48a1-9d51-e1ef35b4ea76.jpeg');
-
-const galleryImages = [
-  {
-    file: 'ade4cbcb-0faa-48a1-9d51-e1ef35b4ea76.jpeg',
-    scientificName: 'Xenops rutilans',
-    es: {
-      alt: 'Fotografía de referencia del tour de birdwatching de La Vieja Adventures',
-      label: 'Xenops rayado',
-    },
-    en: {
-      alt: 'Reference photo from the La Vieja Adventures birdwatching tour',
-      label: 'Streaked Xenops',
-    },
-  },
-  {
-    file: '10e47434-c50d-4425-b82b-ed4236d80b5d.jpeg',
-    scientificName: 'Sporophila corvina',
-    es: {
-      alt: 'Imagen de referencia de aves y naturaleza para la experiencia guiada',
-      label: 'Semillero variable',
-    },
-    en: {
-      alt: 'Reference image of birds and nature for the guided experience',
-      label: 'Variable Seedeater',
-    },
-  },
-  {
-    file: '5aff8c5b-442c-4ef8-8acb-412c073f9100.jpeg',
-    scientificName: 'Amazilia tzacatl',
-    es: {
-      alt: 'Fotografía de referencia de biodiversidad local en el recorrido',
-      label: 'Colibrí de cola rufa',
-    },
-    en: {
-      alt: 'Reference photo of local biodiversity along the route',
-      label: 'Rufous-tailed Hummingbird',
-    },
-  },
-  {
-    file: '2f727422-8f07-4936-8c40-69e9d530a087.jpeg',
-    scientificName: 'Melanerpes pucherani',
-    es: {
-      alt: 'Imagen del entorno natural usado como referencia visual de la página',
-      label: 'Carpintero carinegro',
-    },
-    en: {
-      alt: 'Image of the natural setting used as visual reference for the page',
-      label: 'Black-cheeked Woodpecker',
-    },
-  },
-  {
-    file: 'b8cd51a3-ba04-4c29-88ba-fa3b88e07bf3.jpeg',
-    scientificName: 'Piranga rubra',
-    es: {
-      alt: 'Fotografía de referencia para senderos y puntos de observación',
-      label: 'Tangara veranera',
-    },
-    en: {
-      alt: 'Reference photo for trails and observation points',
-      label: 'Summer Tanager',
-    },
-  },
-  {
-    file: '31555f0b-5b6c-43cc-a3ef-efd8976a0a10.jpeg',
-    scientificName: 'Colaptes rubiginosus',
-    es: {
-      alt: 'Imagen de referencia del ambiente de La Vieja Adventures',
-      label: 'Carpintero oliváceo',
-    },
-    en: {
-      alt: 'Reference image of the La Vieja Adventures environment',
-      label: 'Golden-olive Woodpecker',
-    },
-  },
-  {
-    file: '8a916eb1-9ac7-4eef-9ca5-4e7fca45fbe7.jpeg',
-    scientificName: 'Thraupis episcopus',
-    es: {
-      alt: 'Fotografía de referencia para composición de naturaleza y aves',
-      label: 'Tangara azulada',
-    },
-    en: {
-      alt: 'Reference photo for nature and bird composition',
-      label: 'Blue-gray Tanager',
-    },
-  },
-  {
-    file: '5adaf470-7207-482e-a023-dcb2fa9f1fb6.jpeg',
-    scientificName: 'Phaethornis longirostris',
-    es: {
-      alt: 'Detalle visual de la experiencia de observación de aves',
-      label: 'Ermitaño colilargo',
-    },
-    en: {
-      alt: 'Visual detail from the birdwatching experience',
-      label: 'Long-billed Hermit',
-    },
-  },
-  {
-    file: '100ccdec-209d-4d37-86ed-981a3060dc8d.jpeg',
-    scientificName: 'Elaenia flavogaster',
-    es: {
-      alt: 'Imagen de referencia de naturaleza para el contenido web',
-      label: 'Elaenia copetona',
-    },
-    en: {
-      alt: 'Reference nature image for the website content',
-      label: 'Yellow-bellied Elaenia',
-    },
-  },
-  {
-    file: 'a04cb7a1-b5f4-48fd-b5fc-38e05d5362c3.jpeg',
-    scientificName: 'Amazilia tzacatl',
-    es: {
-      alt: 'Fotografía de referencia para visitantes del tour de birdwatching',
-      label: 'Colibrí de cola rufa',
-    },
-    en: {
-      alt: 'Reference photo for visitors to the birdwatching tour',
-      label: 'Rufous-tailed Hummingbird',
-    },
-  },
-  {
-    file: '94cbfada-965f-4039-8dc9-1f8042be93bd.jpeg',
-    es: {
-      alt: 'Imagen de referencia de paisaje natural de la experiencia',
-      label: 'Paisaje',
-    },
-    en: {
-      alt: 'Reference image of the experience natural landscape',
-      label: 'Landscape',
-    },
-  },
-  {
-    file: '2ab6f78f-832a-4a94-901e-dc346f41dacb.jpeg',
-    scientificName: 'Melanerpes hoffmannii',
-    es: {
-      alt: 'Fotografía de referencia de avistamiento y entorno rural',
-      label: 'Carpintero de Hoffmann',
-    },
-    en: {
-      alt: 'Reference photo of bird sightings and rural surroundings',
-      label: "Hoffmann's Woodpecker",
-    },
-  },
-  {
-    file: '5207a9ea-d688-41a7-a4b8-4ab7c0e37ecc.jpeg',
-    es: {
-      alt: 'Imagen de referencia para cierre visual de la galería',
-      label: 'La Vieja Adventures',
-    },
-    en: {
-      alt: 'Reference image for the gallery closing visual',
-      label: 'La Vieja Adventures',
-    },
-  },
-];
 
 const content = {
   es: {
@@ -193,6 +36,7 @@ const content = {
       { label: 'Galería', href: '#galeria' },
       { label: 'Aves del mes', href: '#aves-destacadas' },
       { label: 'Checklist del tour', href: '/birdwatching/checklist' },
+      { label: 'Reviews', href: '/reviews' },
       { label: 'Incluye', href: '#incluye' },
       { label: 'FAQ', href: '#faq' },
     ],
@@ -277,6 +121,8 @@ const content = {
       viewer: 'Visor de galería',
       of: 'de',
     },
+    galleryViewAll: 'Ver galería completa',
+    galleryPhotosLabel: 'fotografías reales',
     planVisit: 'Planear mi visita',
     includedEyebrow: 'Qué incluye',
     includedTitle: 'Todo lo necesario para una experiencia cómoda, segura y memorable.',
@@ -293,28 +139,6 @@ const content = {
     conversionDescription:
       'Las primeras horas ofrecen mejor luz, menos calor y mayor actividad de aves. Recomendamos confirmar disponibilidad con anticipación.',
     reserveNow: 'Reservar ahora',
-    trustEyebrow: 'Confianza',
-    trustTitle: 'Visitantes que buscan naturaleza real, no tours genéricos.',
-    testimonials: [
-      {
-        quote:
-          'Una experiencia íntima, silenciosa y muy profesional. El guía sabía exactamente dónde esperar y cómo leer el bosque.',
-        author: 'María G.',
-        detail: 'Viajera de naturaleza',
-      },
-      {
-        quote:
-          'Perfecto para fotografía: buena luz, paciencia y rutas sin prisa. Se siente auténtico, no masivo.',
-        author: 'Daniel R.',
-        detail: 'Fotógrafo aficionado',
-      },
-      {
-        quote:
-          'El amanecer, el café y las aves hicieron que fuera uno de los mejores momentos de nuestro viaje a Costa Rica.',
-        author: 'Sophie & Mark',
-        detail: 'Tour privado',
-      },
-    ],
     faqEyebrow: 'FAQ',
     faqTitle: 'Preguntas frecuentes antes de reservar.',
     faqs: [
@@ -368,6 +192,7 @@ const content = {
       { label: 'Gallery', href: '#galeria' },
       { label: 'Birds of the month', href: '#aves-destacadas' },
       { label: 'Tour checklist', href: '/birdwatching/checklist' },
+      { label: 'Reviews', href: '/reviews' },
       { label: 'Includes', href: '#incluye' },
       { label: 'FAQ', href: '#faq' },
     ],
@@ -452,6 +277,8 @@ const content = {
       viewer: 'Gallery viewer',
       of: 'of',
     },
+    galleryViewAll: 'View full gallery',
+    galleryPhotosLabel: 'real photos',
     planVisit: 'Plan my visit',
     includedEyebrow: 'What is included',
     includedTitle: 'Everything needed for a comfortable, safe, and memorable experience.',
@@ -468,28 +295,6 @@ const content = {
     conversionDescription:
       'The first hours offer better light, less heat, and more bird activity. We recommend confirming availability in advance.',
     reserveNow: 'Book now',
-    trustEyebrow: 'Trust',
-    trustTitle: 'Visitors looking for real nature, not generic tours.',
-    testimonials: [
-      {
-        quote:
-          'An intimate, quiet, and highly professional experience. The guide knew exactly where to wait and how to read the forest.',
-        author: 'María G.',
-        detail: 'Nature traveler',
-      },
-      {
-        quote:
-          'Perfect for photography: good light, patience, and unhurried routes. It feels authentic, not crowded.',
-        author: 'Daniel R.',
-        detail: 'Amateur photographer',
-      },
-      {
-        quote:
-          'The sunrise, coffee, and birds made this one of the best moments of our trip to Costa Rica.',
-        author: 'Sophie & Mark',
-        detail: 'Private tour',
-      },
-    ],
     faqEyebrow: 'FAQ',
     faqTitle: 'Frequently asked questions before booking.',
     faqs: [
@@ -706,21 +511,69 @@ export default function Home() {
       </section>
 
       <section className="section" aria-labelledby="intro-title">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
-          <div className="reveal">
-            <p className="eyebrow text-emerald-900">{t.introEyebrow}</p>
-            <h2 id="intro-title" className="section-title">{t.introTitle}</h2>
-          </div>
-          <div className="reveal reveal-delay space-y-6 text-lg leading-8 text-slate-700">
-            {t.introParagraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14">
+            <div className="reveal">
+              <p className="eyebrow text-emerald-900">{t.introEyebrow}</p>
+              <h2 id="intro-title" className="section-title">{t.introTitle}</h2>
+              <div className="mt-6 space-y-5 text-lg leading-8 text-slate-700">
+                {t.introParagraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+
+            <div
+              id="checklist-cta"
+              className="reveal reveal-delay relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-teal-500 via-emerald-600 to-emerald-800 p-8 text-white shadow-2xl shadow-emerald-900/30 sm:p-10"
+            >
+              <div className="pointer-events-none absolute -right-12 -top-12 h-56 w-56 rounded-full bg-amber-200/25 blur-3xl" aria-hidden="true" />
+              <div className="pointer-events-none absolute -bottom-16 left-8 h-64 w-64 rounded-full bg-teal-200/20 blur-3xl" aria-hidden="true" />
+
+              <div className="relative">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-amber-100 backdrop-blur-sm">
+                  <span aria-hidden="true">🪶</span>
+                  {t.checklistEyebrow}
+                </span>
+                <h3 className="mt-5 font-serif text-3xl font-black leading-tight tracking-tight sm:text-4xl">
+                  {t.checklistTitle}
+                </h3>
+                <p className="mt-4 text-lg leading-8 text-white/85">{t.checklistDescription}</p>
+                <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-bold text-white/90">
+                  {t.checklistFeatures.map((feature) => (
+                    <li key={feature} className="flex items-center gap-2">
+                      <span className="grid h-5 w-5 place-items-center rounded-full bg-amber-200 text-xs text-emerald-950" aria-hidden="true">✓</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8 flex flex-col items-start gap-3">
+                  <a href="/birdwatching/checklist" className="btn group w-full justify-center text-base sm:w-auto">
+                    <span aria-hidden="true" className="transition-transform group-hover:-translate-x-0.5">✓</span>
+                    {t.checklistCta}
+                    <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
+                  </a>
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">{t.checklistHint}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="experiencias" className="section bg-[#07180f] text-white" aria-labelledby="experiences-title">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section id="experiencias" className="section relative overflow-hidden bg-[#07180f] text-white" aria-labelledby="experiences-title">
+        {/* Foto real de la galería como textura de fondo (oscurecida para legibilidad). */}
+        <Image
+          src={birdwatchingImage('8a916eb1-9ac7-4eef-9ca5-4e7fca45fbe7.jpeg')}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+          aria-hidden="true"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-[#07180f]/88" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#f8f3e8] to-transparent" aria-hidden="true" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center reveal">
             <p className="eyebrow text-amber-200">{t.experiencesEyebrow}</p>
             <h2 id="experiences-title" className="section-title text-white">{t.experiencesTitle}</h2>
@@ -749,62 +602,38 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="galeria" className="section" aria-labelledby="gallery-title">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end reveal">
-            <div className="max-w-3xl">
-              <p className="eyebrow text-emerald-900">{t.galleryEyebrow}</p>
-              <h2 id="gallery-title" className="section-title">{t.galleryTitle}</h2>
-              <p className="mt-5 text-lg leading-8 text-slate-600">{t.galleryDescription}</p>
-            </div>
-            <a href={whatsappUrl} className="btn btn-dark self-start" target="_blank" rel="noreferrer">
-              {t.planVisit}
-            </a>
-          </div>
-          <Gallery images={gallery} ui={t.galleryUi} />
+      <section id="galeria" className="section relative overflow-hidden bg-[#07180f] text-white" aria-labelledby="gallery-title">
+        <Image
+          src={birdwatchingImage('b8cd51a3-ba04-4c29-88ba-fa3b88e07bf3.jpeg')}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+          aria-hidden="true"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-[#07180f]/85" aria-hidden="true" />
+
+        <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-amber-100 backdrop-blur-sm">
+            <span aria-hidden="true">📸</span>
+            {t.galleryEyebrow}
+          </span>
+          <h2 id="gallery-title" className="mt-6 section-title text-white">{t.galleryTitle}</h2>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/76">{t.galleryDescription}</p>
+          <Link
+            href="/galeria"
+            className="group mt-9 inline-flex items-center gap-3 rounded-full bg-amber-200 px-8 py-4 text-base font-black uppercase tracking-[0.12em] text-emerald-950 shadow-lg shadow-amber-900/20 transition duration-300 hover:scale-[1.03] hover:bg-amber-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-amber-300"
+          >
+            {t.galleryViewAll}
+            <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </Link>
+          <span className="mt-5 text-sm font-semibold uppercase tracking-[0.16em] text-emerald-100/80">
+            {gallery.length} {t.galleryPhotosLabel}
+          </span>
         </div>
       </section>
 
-      <MonthlyFeaturedBirds language={language} whatsappNumber={whatsappNumber} />
-
-      <section className="px-4 sm:px-6 lg:px-8" aria-labelledby="checklist-cta-title">
-        <div className="mx-auto max-w-7xl">
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-teal-500 via-emerald-600 to-emerald-800 px-6 py-12 text-white shadow-2xl shadow-emerald-900/30 reveal sm:px-12 sm:py-14">
-            <div className="pointer-events-none absolute -right-12 -top-12 h-56 w-56 rounded-full bg-amber-200/25 blur-3xl" aria-hidden="true" />
-            <div className="pointer-events-none absolute -bottom-16 left-8 h-64 w-64 rounded-full bg-teal-200/20 blur-3xl" aria-hidden="true" />
-
-            <div className="relative grid items-center gap-10 lg:grid-cols-[1.5fr_auto]">
-              <div>
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-amber-100 backdrop-blur-sm">
-                  <span aria-hidden="true">🪶</span>
-                  {t.checklistEyebrow}
-                </span>
-                <h2 id="checklist-cta-title" className="mt-5 font-serif text-3xl font-black leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-                  {t.checklistTitle}
-                </h2>
-                <p className="mt-4 max-w-2xl text-lg leading-8 text-white/85">{t.checklistDescription}</p>
-                <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-bold text-white/90">
-                  {t.checklistFeatures.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2">
-                      <span className="grid h-5 w-5 place-items-center rounded-full bg-amber-200 text-xs text-emerald-950" aria-hidden="true">✓</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="flex flex-col items-start gap-3 lg:items-center">
-                <a href="/birdwatching/checklist" className="btn group w-full justify-center text-base sm:w-auto">
-                  <span aria-hidden="true" className="transition-transform group-hover:-translate-x-0.5">✓</span>
-                  {t.checklistCta}
-                  <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
-                </a>
-                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">{t.checklistHint}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <MonthlyFeaturedBirds language={language} whatsappNumber={whatsappNumber} variant="cta" />
 
       <section id="incluye" className="section bg-white" aria-labelledby="included-title">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_.9fr] lg:px-8">
@@ -827,26 +656,6 @@ export default function Home() {
             <a href={whatsappUrl} className="btn mt-8" target="_blank" rel="noreferrer">
               {t.reserveNow}
             </a>
-          </div>
-        </div>
-      </section>
-
-      <section className="section bg-emerald-50" aria-labelledby="trust-title">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center reveal">
-            <p className="eyebrow text-emerald-900">{t.trustEyebrow}</p>
-            <h2 id="trust-title" className="section-title">{t.trustTitle}</h2>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {t.testimonials.map((testimonial) => (
-              <blockquote key={testimonial.author} className="rounded-[2rem] bg-white p-8 shadow-xl shadow-emerald-950/5 reveal">
-                <p className="text-lg leading-8 text-slate-700">“{testimonial.quote}”</p>
-                <footer className="mt-6 border-t border-emerald-950/10 pt-5">
-                  <strong className="block text-emerald-950">{testimonial.author}</strong>
-                  <span className="text-sm text-slate-500">{testimonial.detail}</span>
-                </footer>
-              </blockquote>
-            ))}
           </div>
         </div>
       </section>

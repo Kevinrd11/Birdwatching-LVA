@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { siteConfig, whatsappLink } from '@/lib/config';
 
 type Language = 'es' | 'en';
@@ -21,6 +22,9 @@ type FeaturedBird = {
 type MonthlyFeaturedBirdsProps = {
   language?: Language;
   whatsappNumber?: string;
+  // 'cta' muestra solo un llamado a la acción (sin fotos de aves), pensado para
+  // la página principal. 'full' muestra todas las tarjetas con fotos.
+  variant?: 'full' | 'cta';
 };
 
 export const currentMonth = 'Junio';
@@ -102,6 +106,8 @@ const copy = {
       'Reservá una salida de birdwatching al amanecer y descubrí las aves que habitan los senderos, miradores y bosques de montaña de La Vieja Adventures.',
     primaryCta: 'Reservar tour de birdwatching',
     secondaryCta: 'Consultar especies por WhatsApp',
+    viewFeatured: 'Ver aves del mes',
+    viewFeaturedHint: 'Especies, horarios y hábitats',
     whatsappMessage:
       'Hola, quiero información sobre las aves destacadas del mes en La Vieja Adventures.\n\nMe interesa reservar un tour de birdwatching en Sucre, San Carlos.\n\nQuisiera consultar disponibilidad, precios y especies que se están observando actualmente.',
   },
@@ -125,6 +131,8 @@ const copy = {
       'Book a sunrise birdwatching outing and discover the birds living around the trails, viewpoints, and mountain forests of La Vieja Adventures.',
     primaryCta: 'Book birdwatching tour',
     secondaryCta: 'Ask about species on WhatsApp',
+    viewFeatured: 'View birds of the month',
+    viewFeaturedHint: 'Species, timing, and habitats',
     whatsappMessage:
       'Hello, I want information about the featured birds of the month at La Vieja Adventures.\n\nI am interested in booking a birdwatching tour in Sucre, San Carlos.\n\nI would like to ask about availability, prices, and species currently being observed.',
   },
@@ -172,6 +180,7 @@ function FeaturedBirdImage({ bird, language }: { bird: FeaturedBird; language: L
 export default function MonthlyFeaturedBirds({
   language = 'es',
   whatsappNumber = siteConfig.whatsappNumber,
+  variant = 'full',
 }: MonthlyFeaturedBirdsProps) {
   const text = copy[language];
   const month = monthByLanguage[language];
@@ -179,6 +188,44 @@ export default function MonthlyFeaturedBirds({
     () => whatsappLink(text.whatsappMessage, whatsappNumber),
     [text.whatsappMessage, whatsappNumber]
   );
+
+  if (variant === 'cta') {
+    return (
+      <section id="aves-destacadas" className="section relative overflow-hidden bg-[#07180f] text-white" aria-labelledby="monthly-birds-title">
+        {/* Foto real de la galería como textura de fondo (oscurecida para legibilidad). */}
+        <Image
+          src="/images/birdwatching/5aff8c5b-442c-4ef8-8acb-412c073f9100.jpeg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+          aria-hidden="true"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-[#07180f]/85" aria-hidden="true" />
+        {/* Degradado de salida hacia la sección clara siguiente, para que el cambio sea sutil al hacer scroll. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-white" aria-hidden="true" />
+
+        <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-amber-100 backdrop-blur-sm">
+            <span aria-hidden="true">🪶</span>
+            {text.eyebrow} · {month}
+          </span>
+          <h2 id="monthly-birds-title" className="mt-6 section-title text-white">{text.title}</h2>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/76">{text.subtitle}</p>
+          <Link
+            href="/aves-destacadas"
+            className="group mt-9 inline-flex items-center gap-3 rounded-full bg-amber-200 px-8 py-4 text-base font-black uppercase tracking-[0.12em] text-emerald-950 shadow-lg shadow-amber-900/20 transition duration-300 hover:scale-[1.03] hover:bg-amber-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-amber-300"
+          >
+            {text.viewFeatured}
+            <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </Link>
+          <span className="mt-5 text-sm font-semibold uppercase tracking-[0.16em] text-emerald-100/80">
+            {text.viewFeaturedHint}
+          </span>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="aves-destacadas" className="section relative overflow-hidden bg-[#07180f] text-white" aria-labelledby="monthly-birds-title">
@@ -252,7 +299,7 @@ export default function MonthlyFeaturedBirds({
               <p className="mt-4 max-w-3xl text-lg leading-8 text-white/76">{text.ctaText}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-              <a href="#contacto" className="btn whitespace-nowrap">
+              <a href="/#contacto" className="btn whitespace-nowrap">
                 {text.primaryCta}
               </a>
               <a href={whatsappUrl} className="btn btn-ghost whitespace-nowrap" target="_blank" rel="noreferrer">

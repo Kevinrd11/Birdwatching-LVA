@@ -79,6 +79,12 @@ img {
   color: #07180f;
 }
 
+/* En secciones oscuras el título debe ir claro. La mayor especificidad de este
+   selector asegura que prevalezca sobre el color base de .section-title. */
+.section-title.text-white {
+  color: #f8f3e8;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
