@@ -84,6 +84,8 @@ const content = {
         title: 'Autoguiado Clásico',
         eyebrow: 'Explorá por tu cuenta',
         duration: 'A su propio ritmo',
+        price: '₡5.000',
+        priceUsd: '≈ $10 USD',
         copy: 'Caminata auto-guiada por senderos, estaciones de observación y puntos de alta actividad para descubrir especies locales a su propio ritmo.',
         points: [
           { icon: '🚻', label: 'Acceso a instalaciones: baños, servicios y WiFi' },
@@ -97,6 +99,8 @@ const content = {
         title: 'Guiado Clásico',
         eyebrow: 'Con interpretación naturalista',
         duration: '2 horas y media',
+        price: '₡25.000',
+        priceUsd: '≈ $50 USD',
         copy: 'Caminata guiada por senderos, estaciones de observación y puntos de alta actividad para descubrir especies locales con interpretación naturalista.',
         points: [
           { icon: '🧭', label: 'Guía local' },
@@ -114,6 +118,8 @@ const content = {
         title: 'Privado',
         eyebrow: 'Experiencia premium',
         duration: '3 horas',
+        price: '₡30.000',
+        priceUsd: '≈ $60 USD',
         copy: 'Experiencia privada de observación de aves con guía local certificado, ideal para quienes buscan un recorrido más personalizado, tranquilo y con mayor enfoque en interpretación naturalista.',
         points: [
           { icon: '🧭', label: 'Guía local certificado' },
@@ -259,6 +265,8 @@ const content = {
         title: 'Classic Self-Guided',
         eyebrow: 'Explore on your own',
         duration: 'At your own pace',
+        price: '₡5,000',
+        priceUsd: '≈ $10 USD',
         copy: 'A self-guided walk through trails, observation stations, and high-activity points to discover local species at your own pace.',
         points: [
           { icon: '🚻', label: 'Access to facilities: restrooms, services, and WiFi' },
@@ -272,6 +280,8 @@ const content = {
         title: 'Classic Guided',
         eyebrow: 'With naturalist interpretation',
         duration: '2.5 hours',
+        price: '₡25,000',
+        priceUsd: '≈ $50 USD',
         copy: 'A guided walk through trails, observation stations, and high-activity points to discover local species with naturalist interpretation.',
         points: [
           { icon: '🧭', label: 'Local guide' },
@@ -289,6 +299,8 @@ const content = {
         title: 'Private',
         eyebrow: 'Premium experience',
         duration: '3 hours',
+        price: '₡30,000',
+        priceUsd: '≈ $60 USD',
         copy: 'A private birdwatching experience with a certified local guide, ideal for those seeking a more personalized, unhurried tour with a deeper focus on naturalist interpretation.',
         points: [
           { icon: '🧭', label: 'Certified local guide' },
@@ -626,7 +638,11 @@ export default function Home() {
               >
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-amber-200">{experience.eyebrow}</p>
                 <h3 className="mt-4 font-serif text-2xl font-bold">{experience.title}</h3>
-                <p className="mt-2 inline-flex self-start rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-emerald-100">
+                <p className="mt-3 flex items-baseline gap-2">
+                  <span className="font-serif text-3xl font-black text-amber-200">{experience.price}</span>
+                  <span className="text-sm font-semibold text-white/65">{experience.priceUsd}</span>
+                </p>
+                <p className="mt-3 inline-flex self-start rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-emerald-100">
                   {experience.duration}
                 </p>
                 <p className="mt-5 text-sm leading-7 text-white/72">{experience.copy}</p>
