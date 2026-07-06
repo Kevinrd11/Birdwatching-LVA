@@ -76,39 +76,58 @@ const content = {
       'La Vieja Adventures convierte el birdwatching en una inmersión tranquila y premium: senderos con ritmo pausado, lectura del paisaje, interpretación ambiental y espacios para fotografía sin prisa.',
       'La propuesta está pensada para viajeros que buscan Costa Rica real: biodiversidad, conocimiento local, hospitalidad rural y una aventura memorable lejos de experiencias masivas.',
     ],
-    experiencesEyebrow: 'Modalidades',
+    experiencesEyebrow: 'Tours disponibles',
     experiencesTitle: 'Elige la ruta ideal para tu forma de explorar.',
+    experiencesIncludesLabel: 'Incluye',
     experiences: [
       {
-        title: 'Birdwatching Clásico',
-        eyebrow: 'Ideal para empezar',
-        duration: '2.5–3 horas',
+        title: 'Autoguiado Clásico',
+        eyebrow: 'Explorá por tu cuenta',
+        duration: 'A su propio ritmo',
+        copy: 'Caminata auto-guiada por senderos, estaciones de observación y puntos de alta actividad para descubrir especies locales a su propio ritmo.',
+        points: [
+          { icon: '🚻', label: 'Acceso a instalaciones: baños, servicios y WiFi' },
+          { icon: '☕', label: 'Cafetería disponible' },
+          { icon: '🥾', label: 'Recorrido a su propio ritmo' },
+        ],
+        cta: 'Consultar disponibilidad',
+        featured: false,
+      },
+      {
+        title: 'Guiado Clásico',
+        eyebrow: 'Con interpretación naturalista',
+        duration: '2 horas y media',
         copy: 'Caminata guiada por senderos, estaciones de observación y puntos de alta actividad para descubrir especies locales con interpretación naturalista.',
-        points: ['Guía local experto', 'Checklist de aves', 'Ritmo familiar'],
+        points: [
+          { icon: '🧭', label: 'Guía local' },
+          { icon: '🚻', label: 'Acceso a instalaciones: baños, servicios y WiFi' },
+          { icon: '☕', label: 'Cafetería disponible' },
+          { icon: '🪶', label: 'Checklist de aves' },
+          { icon: '👣', label: 'Ritmo familiar' },
+          { icon: '🕒', label: 'Duración: 2 horas y media' },
+          { icon: '🍍', label: 'Frutas' },
+        ],
+        cta: 'Reservar guiado',
+        featured: false,
       },
       {
-        title: 'Bird Photography Tour',
-        eyebrow: 'Para fotógrafos',
-        duration: '3.5–4 horas',
-        copy: 'Ruta diseñada alrededor de luz, paciencia, composición y comportamiento ético para capturar aves sin alterar su entorno.',
-        points: ['Luz de amanecer', 'Pausas extendidas', 'Consejos técnicos'],
-      },
-      {
-        title: 'Sunrise + Café Local',
-        eyebrow: 'Más reservado',
-        duration: '5:30 a.m.',
-        copy: 'Vive la actividad más intensa del bosque en las primeras horas y cierra la mañana con café costarricense y conversación local.',
-        points: ['Aves activas', 'Café de la zona', 'Ambiente premium'],
-      },
-      {
-        title: 'Private Birding Experience',
-        eyebrow: 'Exclusivo',
-        duration: 'Flexible',
-        copy: 'Experiencia privada para parejas, familias o grupos pequeños, ajustada a tus intereses, condición física y objetivos de fotografía.',
-        points: ['Ruta personalizada', 'Atención 1:1', 'Horarios a convenir'],
+        title: 'Privado',
+        eyebrow: 'Experiencia premium',
+        duration: '3 horas',
+        copy: 'Experiencia privada de observación de aves con guía local certificado, ideal para quienes buscan un recorrido más personalizado, tranquilo y con mayor enfoque en interpretación naturalista.',
+        points: [
+          { icon: '🧭', label: 'Guía local certificado' },
+          { icon: '🚻', label: 'Acceso a instalaciones: baños, servicios y WiFi' },
+          { icon: '☕', label: 'Cafetería disponible' },
+          { icon: '🪶', label: 'Checklist de aves' },
+          { icon: '👣', label: 'Ritmo familiar' },
+          { icon: '🕒', label: 'Duración: 3 horas' },
+          { icon: '🍍', label: 'Frutas' },
+        ],
+        cta: 'Solicitar experiencia privada',
+        featured: true,
       },
     ],
-    checkAvailability: 'Consultar disponibilidad →',
     galleryEyebrow: 'Galería visual',
     galleryTitle: 'Fotos reales tomadas en La Vieja Adventures.',
     galleryDescription:
@@ -232,39 +251,58 @@ const content = {
       'La Vieja Adventures turns birdwatching into a calm, premium immersion: slow-paced trails, landscape reading, environmental interpretation, and unhurried spaces for photography.',
       'The experience is designed for travelers seeking the real Costa Rica: biodiversity, local knowledge, rural hospitality, and a memorable adventure far from mass tourism.',
     ],
-    experiencesEyebrow: 'Tour options',
+    experiencesEyebrow: 'Available tours',
     experiencesTitle: 'Choose the ideal route for the way you explore.',
+    experiencesIncludesLabel: 'Includes',
     experiences: [
       {
-        title: 'Classic Birdwatching',
-        eyebrow: 'Ideal for getting started',
-        duration: '2.5–3 hours',
+        title: 'Classic Self-Guided',
+        eyebrow: 'Explore on your own',
+        duration: 'At your own pace',
+        copy: 'A self-guided walk through trails, observation stations, and high-activity points to discover local species at your own pace.',
+        points: [
+          { icon: '🚻', label: 'Access to facilities: restrooms, services, and WiFi' },
+          { icon: '☕', label: 'Coffee shop available' },
+          { icon: '🥾', label: 'Walk at your own pace' },
+        ],
+        cta: 'Check availability',
+        featured: false,
+      },
+      {
+        title: 'Classic Guided',
+        eyebrow: 'With naturalist interpretation',
+        duration: '2.5 hours',
         copy: 'A guided walk through trails, observation stations, and high-activity points to discover local species with naturalist interpretation.',
-        points: ['Expert local guide', 'Bird checklist', 'Family-friendly pace'],
+        points: [
+          { icon: '🧭', label: 'Local guide' },
+          { icon: '🚻', label: 'Access to facilities: restrooms, services, and WiFi' },
+          { icon: '☕', label: 'Coffee shop available' },
+          { icon: '🪶', label: 'Bird checklist' },
+          { icon: '👣', label: 'Family-friendly pace' },
+          { icon: '🕒', label: 'Duration: 2.5 hours' },
+          { icon: '🍍', label: 'Fresh fruit' },
+        ],
+        cta: 'Book guided tour',
+        featured: false,
       },
       {
-        title: 'Bird Photography Tour',
-        eyebrow: 'For photographers',
-        duration: '3.5–4 hours',
-        copy: 'A route designed around light, patience, composition, and ethical behavior to capture birds without disturbing their environment.',
-        points: ['Sunrise light', 'Extended pauses', 'Technical tips'],
-      },
-      {
-        title: 'Sunrise + Local Coffee',
-        eyebrow: 'Most booked',
-        duration: '5:30 a.m.',
-        copy: 'Experience the forest at its most active in the early hours and close the morning with Costa Rican coffee and local conversation.',
-        points: ['Active birds', 'Local coffee', 'Premium atmosphere'],
-      },
-      {
-        title: 'Private Birding Experience',
-        eyebrow: 'Exclusive',
-        duration: 'Flexible',
-        copy: 'A private experience for couples, families, or small groups, adjusted to your interests, fitness level, and photography goals.',
-        points: ['Personalized route', '1:1 attention', 'Flexible scheduling'],
+        title: 'Private',
+        eyebrow: 'Premium experience',
+        duration: '3 hours',
+        copy: 'A private birdwatching experience with a certified local guide, ideal for those seeking a more personalized, unhurried tour with a deeper focus on naturalist interpretation.',
+        points: [
+          { icon: '🧭', label: 'Certified local guide' },
+          { icon: '🚻', label: 'Access to facilities: restrooms, services, and WiFi' },
+          { icon: '☕', label: 'Coffee shop available' },
+          { icon: '🪶', label: 'Bird checklist' },
+          { icon: '👣', label: 'Family-friendly pace' },
+          { icon: '🕒', label: 'Duration: 3 hours' },
+          { icon: '🍍', label: 'Fresh fruit' },
+        ],
+        cta: 'Request private experience',
+        featured: true,
       },
     ],
-    checkAvailability: 'Check availability →',
     galleryEyebrow: 'Visual gallery',
     galleryTitle: 'Real photos taken at La Vieja Adventures.',
     galleryDescription:
@@ -578,24 +616,43 @@ export default function Home() {
             <p className="eyebrow text-amber-200">{t.experiencesEyebrow}</p>
             <h2 id="experiences-title" className="section-title text-white">{t.experiencesTitle}</h2>
           </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-14 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {t.experiences.map((experience) => (
-              <article key={experience.title} className="experience-card reveal">
+              <article
+                key={experience.title}
+                className={`experience-card reveal flex flex-col ${
+                  experience.featured ? 'experience-card-featured sm:col-span-2 lg:col-span-1' : ''
+                }`}
+              >
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-amber-200">{experience.eyebrow}</p>
                 <h3 className="mt-4 font-serif text-2xl font-bold">{experience.title}</h3>
-                <p className="mt-2 inline-flex rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-emerald-100">{experience.duration}</p>
+                <p className="mt-2 inline-flex self-start rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-emerald-100">
+                  {experience.duration}
+                </p>
                 <p className="mt-5 text-sm leading-7 text-white/72">{experience.copy}</p>
-                <ul className="mt-6 space-y-3">
+                <p className="mt-6 text-xs font-black uppercase tracking-[0.18em] text-emerald-100/70">
+                  {t.experiencesIncludesLabel}
+                </p>
+                <ul className="mt-3 space-y-3">
                   {experience.points.map((point) => (
-                    <li key={point} className="flex gap-3 text-sm text-white/82">
-                      <span className="text-amber-200">✦</span>
-                      {point}
+                    <li key={point.label} className="flex gap-3 text-sm text-white/82">
+                      <span className="shrink-0 opacity-80" aria-hidden="true">{point.icon}</span>
+                      {point.label}
                     </li>
                   ))}
                 </ul>
-                <a href={whatsappUrl} className="mt-8 inline-flex font-bold text-amber-200 hover:text-white" target="_blank" rel="noreferrer">
-                  {t.checkAvailability}
-                </a>
+                <div className="mt-8 flex flex-1 items-end">
+                  <a
+                    href={whatsappUrl}
+                    className={`btn btn-small w-full justify-center text-center ${
+                      experience.featured ? '' : 'btn-glass'
+                    }`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {experience.cta}
+                  </a>
+                </div>
               </article>
             ))}
           </div>
