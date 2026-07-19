@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -rn \"from '@/lib\\\\|from '\\\\.\\\\./lib\\\\|from '\\\\./lib\\\\|lib/data\\\\|lib/utils\\\\|lib/types\" app components)",
+      "Bash(grep -rn \"from '\\\\./\\\\|from '@/components\" components)",
+      "Bash(rm -f components/BirdingSpotsSection.tsx components/BirdSpeciesSection.tsx components/BookingCTA.tsx components/FAQSection.tsx components/Footer.tsx components/Header.tsx components/HeroBirdwatching.tsx components/IncludesSection.tsx components/ModalitiesSection.tsx components/PhotographySection.tsx components/ScheduleSection.tsx components/SustainabilitySection.tsx components/TourIntro.tsx components/WhatsAppButton.tsx components/WhatToBringSection.tsx lib/data.ts lib/types.ts lib/utils.ts 10986907-499b-482a-b5f6-a98ddae969fc.jpeg)",
+      "Bash(ls lib *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(find . -iname \"logo.*\" -not -path \"*/node_modules/*\")",
+      "Bash(ls -la public public/images)",
+      "Bash(sips -g pixelWidth -g pixelHeight logo.jpeg)",
+      "Bash(sips --help)",
+      "Bash(cp logo.jpeg public/logo.jpeg)",
+      "Bash(cp logo.jpeg /tmp/emblem.jpeg)",
+      "Bash(sips -c 410 410 --cropOffset 35 307 /tmp/emblem.jpeg --out public/logo-emblem.jpeg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/logo-emblem.jpeg)",
+      "Bash(sips -c 462 462 --cropOffset 22 280 /tmp/emblem.jpeg --out public/logo-emblem.jpeg)",
+      "Bash(sips -c 442 442 --cropOffset 18 291 /tmp/emblem.jpeg --out public/logo-emblem.jpeg)",
+      "Bash(grep -qiE \"ready|started|local:|http://localhost\" /private/tmp/claude-501/-Users-owner-Desktop-Birdwatching-LVA1-main-2/facf65e6-8fef-4137-b00c-c1bf882730e3/tasks/by516nhma.output)",
+      "Bash(break)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}  \\(%{content_type}\\)\\\\n\" http://localhost:3000/logo-emblem.jpeg)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/icon.jpeg)",
+      "Bash(npx tsc *)",
+      "Bash(curl -s -o /dev/null -w \"home HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(node -e \"const p=require\\('./package.json'\\); console.log\\(JSON.stringify\\({deps:p.dependencies,dev:p.devDependencies},null,2\\)\\)\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/birdwatching/checklist)",
+      "Bash(curl -s http://localhost:3000/birdwatching/checklist)",
+      "Bash(curl -s -o /dev/null -w \"checklist HTTP %{http_code}\\\\n\" http://localhost:3000/birdwatching/checklist)",
+      "Bash(curl -s -m 10 -o /dev/null -w \"wikipedia API HTTP %{http_code}\\\\n\" \"https://en.wikipedia.org/api/rest_v1/page/summary/Pharomachrus_mocinno\")",
+      "Bash(node scripts/fetch-bird-images.mjs)",
+      "Bash(node --input-type=module -e ' *)",
+      "Bash(curl -s -o /dev/null -w \"página HTTP %{http_code}\\\\n\" http://localhost:3000/birdwatching/checklist)",
+      "Bash(curl -s -o /dev/null -w \"foto quetzal HTTP %{http_code} \\(%{content_type}\\)\\\\n\" http://localhost:3000/images/species/pharomachrus-mocinno.jpg)",
+      "Bash(curl -s http://localhost:3000/)"
+    ]
+  }
+}
