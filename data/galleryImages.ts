@@ -2,16 +2,23 @@
 // Adventures). Se usan tanto en el avance de la página principal como en la
 // página de galería completa (/galeria).
 
+import { birdwatchingSpecies } from './birdwatchingSpecies';
+
 export type GalleryImageData = {
   file: string;
+  folder?: 'birdwatching' | 'species';
+  credit?: string;
   scientificName?: string;
   es: { alt: string; label: string };
   en: { alt: string; label: string };
 };
 
 export const birdwatchingImage = (fileName: string) => `/images/birdwatching/${fileName}`;
+export const galleryImagePath = (image: Pick<GalleryImageData, 'file' | 'folder'>) =>
+  `/images/${image.folder ?? 'birdwatching'}/${image.file}`;
+export const galleryImageCredit = (image: Pick<GalleryImageData, 'credit'>) => image.credit ?? 'Juan Espejo';
 
-export const galleryImages: GalleryImageData[] = [
+const baseGalleryImages: GalleryImageData[] = [
   {
     file: 'ade4cbcb-0faa-48a1-9d51-e1ef35b4ea76.jpeg',
     scientificName: 'Xenops rutilans',
@@ -167,3 +174,20 @@ export const galleryImages: GalleryImageData[] = [
     },
   },
 ];
+
+const speciesGalleryImages: GalleryImageData[] = birdwatchingSpecies.map((species) => ({
+  file: `${species.id}.jpg`,
+  folder: 'species',
+  credit: 'Montanaro',
+  scientificName: species.scientificName,
+  es: {
+    alt: `Fotografía de referencia de ${species.commonNameEs} para la galería de aves`,
+    label: species.commonNameEs,
+  },
+  en: {
+    alt: `Reference photo of ${species.commonNameEn} for the bird gallery`,
+    label: species.commonNameEn,
+  },
+}));
+
+export const galleryImages: GalleryImageData[] = [...baseGalleryImages, ...speciesGalleryImages];

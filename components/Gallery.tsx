@@ -7,6 +7,7 @@ export type GalleryImage = {
   src: string;
   alt: string;
   label: string;
+  credit?: string;
   scientificName?: string;
 };
 
@@ -90,7 +91,7 @@ export default function Gallery({ images, ui }: GalleryProps) {
 
   return (
     <>
-      <ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+      <ul className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
         {images.map((image, index) => (
           <li key={image.src} className="reveal">
             <button
@@ -98,24 +99,31 @@ export default function Gallery({ images, ui }: GalleryProps) {
               onClick={() => open(index)}
               aria-label={`${ui.open}: ${image.label}`}
               aria-haspopup="dialog"
-              className="group relative block aspect-square w-full overflow-hidden rounded-[1.75rem] bg-[#d9e4d6] shadow-xl shadow-emerald-950/10 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-amber-300"
+              className="group relative block aspect-[4/3] w-full overflow-hidden rounded-[2rem] border border-emerald-950/10 bg-[#edf3e6] shadow-xl shadow-emerald-950/10 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-amber-300"
             >
               <Image
                 src={image.src}
                 alt={image.alt}
                 fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                className="object-cover transition duration-500 group-hover:scale-[1.06]"
-                priority={index < 4}
+                sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                className="object-contain p-3 transition duration-500 group-hover:scale-[1.02]"
+                priority={index < 3}
               />
               <span
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-emerald-950/85 via-emerald-950/10 to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-emerald-950/78 via-emerald-950/24 to-transparent"
                 aria-hidden="true"
               />
-              <span className="pointer-events-none absolute inset-x-4 bottom-4 text-left">
-                <span className="block text-sm font-black leading-tight text-white drop-shadow-sm">{image.label}</span>
-                {image.scientificName && (
-                  <span className="block text-xs font-semibold italic text-amber-200/90">{image.scientificName}</span>
+              <span className="pointer-events-none absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 text-left">
+                <span className="min-w-0">
+                  <span className="block text-sm font-black leading-tight text-white drop-shadow-sm">{image.label}</span>
+                  {image.scientificName && (
+                    <span className="block text-xs font-semibold italic text-amber-200/90">{image.scientificName}</span>
+                  )}
+                </span>
+                {image.credit && (
+                  <span className="shrink-0 pb-0.5 text-[0.62rem] font-black uppercase tracking-[0.14em] text-white/70 drop-shadow-[0_2px_6px_rgba(0,0,0,.9)]">
+                    {image.credit}
+                  </span>
                 )}
               </span>
               <span
@@ -186,9 +194,14 @@ export default function Gallery({ images, ui }: GalleryProps) {
                 alt={active.alt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 80vw"
-                className="object-contain"
+                className="object-contain p-2"
                 priority
               />
+              {active.credit && (
+                <span className="pointer-events-none absolute bottom-4 right-4 text-xs font-black uppercase tracking-[0.16em] text-white/65 drop-shadow-[0_2px_8px_rgba(0,0,0,.95)] sm:text-sm">
+                  {active.credit}
+                </span>
+              )}
             </div>
             <figcaption className="mt-4 shrink-0 text-center">
               <span className="block text-lg font-black text-white">{active.label}</span>

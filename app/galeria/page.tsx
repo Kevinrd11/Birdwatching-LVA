@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { galleryImages, birdwatchingImage } from '@/data/galleryImages';
+import Gallery from '@/components/Gallery';
+import { galleryImageCredit, galleryImagePath, galleryImages } from '@/data/galleryImages';
 
 export const metadata: Metadata = {
   title: 'Galería de fotos',
@@ -11,6 +12,14 @@ export const metadata: Metadata = {
 };
 
 export default function GaleriaPage() {
+  const images = galleryImages.map((image) => ({
+    src: galleryImagePath(image),
+    alt: image.es.alt,
+    label: image.es.label,
+    credit: galleryImageCredit(image),
+    scientificName: image.scientificName,
+  }));
+
   return (
     <main className="min-h-screen bg-[#f8f3e8] text-slate-950">
       <header className="border-b border-emerald-950/10 bg-[#07180f] text-white">
@@ -50,36 +59,17 @@ export default function GaleriaPage() {
           </p>
         </div>
 
-        {/* Mismo estilo de tarjetas que la sección de aves destacadas del mes. */}
-        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {galleryImages.map((image, index) => (
-            <article
-              key={image.file}
-              className="group overflow-hidden rounded-[2rem] border border-emerald-950/10 bg-white text-slate-950 shadow-2xl shadow-emerald-950/10"
-            >
-              <div className="relative h-56 overflow-hidden bg-emerald-950">
-                <Image
-                  src={birdwatchingImage(image.file)}
-                  alt={image.es.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                  priority={index < 3}
-                />
-                <span className="absolute left-4 top-4 rounded-full bg-white/92 px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-emerald-950 shadow-lg backdrop-blur-sm">
-                  Foto LVA
-                </span>
-              </div>
-
-              <div className="p-6">
-                <h3 className="font-serif text-2xl font-black tracking-tight text-emerald-950">{image.es.label}</h3>
-                {image.scientificName && (
-                  <p className="mt-2 text-sm italic text-emerald-800">{image.scientificName}</p>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
+        <Gallery
+          images={images}
+          ui={{
+            open: 'Abrir foto',
+            close: 'Cerrar',
+            prev: 'Foto anterior',
+            next: 'Foto siguiente',
+            viewer: 'Visor de galería',
+            of: 'de',
+          }}
+        />
       </section>
 
       <footer className="bg-[#04120c] px-4 py-8 text-center text-sm text-white/55 sm:px-6">

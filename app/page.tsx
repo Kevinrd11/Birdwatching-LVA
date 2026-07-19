@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import MonthlyFeaturedBirds from '@/components/MonthlyFeaturedBirds';
 import { siteConfig, whatsappLink } from '@/lib/config';
-import { galleryImages, birdwatchingImage } from '@/data/galleryImages';
+import { galleryImageCredit, galleryImagePath, galleryImages, birdwatchingImage } from '@/data/galleryImages';
 
 type Language = 'es' | 'en';
 
@@ -13,11 +13,13 @@ type GalleryImage = {
   src: string;
   alt: string;
   label: string;
+  credit?: string;
   scientificName?: string;
 };
 
 const whatsappNumber = siteConfig.whatsappNumber;
 const heroImage = birdwatchingImage('ade4cbcb-0faa-48a1-9d51-e1ef35b4ea76.jpeg');
+const instagramUrl = 'https://www.instagram.com/laviejabirdwatching';
 
 const content = {
   es: {
@@ -30,12 +32,14 @@ const content = {
     homeAria: 'La Vieja Adventures Birdwatching inicio',
     menu: 'Menú',
     openMobileMenu: 'Abrir menú móvil',
+    instagramAria: 'Abrir Instagram de La Vieja Birdwatching',
+    instagramLabel: 'Instagram',
     skipLink: 'Saltar al contenido principal',
     navItems: [
       { label: 'Experiencias', href: '#experiencias' },
       { label: 'Galería', href: '#galeria' },
       { label: 'Aves del mes', href: '#aves-destacadas' },
-      { label: 'Checklist del tour', href: '/birdwatching/checklist' },
+      { label: 'Reservas', href: '/reservas' },
       { label: 'Reviews', href: '/reviews' },
       { label: 'Incluye', href: '#incluye' },
       { label: 'FAQ', href: '#faq' },
@@ -62,14 +66,6 @@ const content = {
     ],
     highlightsAria: 'Beneficios destacados',
     highlights: ['Guías locales expertos', 'Reservas rápidas por WhatsApp', 'Turismo rural de bajo impacto'],
-    checklistEyebrow: 'Nuevo · Durante el tour',
-    checklistTitle: 'Llevá tu checklist de aves en el sendero',
-    checklistDescription:
-      'Mientras recorrés los senderos, marcá desde tu celular cada ave que veas, escuches o fotografíes. Tu progreso se guarda automáticamente y al final descargás un recuerdo digital de tu experiencia.',
-    checklistFeatures: ['Pensado para tu celular', 'Guarda tu progreso automáticamente', 'Descargá tu recuerdo en imagen o PDF'],
-    checklistCta: 'Abrir checklist del tour',
-    checklistHint: 'Gratis · sin registro',
-    checklistNav: 'Checklist',
     introEyebrow: 'Naturaleza, aventura y autenticidad',
     introTitle: 'Una experiencia diseñada para ver más que aves.',
     introParagraphs: [
@@ -101,14 +97,13 @@ const content = {
         eyebrow: 'Con interpretación naturalista',
         duration: '2 horas y media',
         availability: 'Solo fines de semana',
-        price: '₡25.000',
-        priceUsd: '≈ $50 USD',
+        price: '₡15.000',
+        priceUsd: '≈ $30 USD',
         copy: 'Caminata guiada por senderos, estaciones de observación y puntos de alta actividad para descubrir especies locales con interpretación naturalista.',
         points: [
           { icon: '🧭', label: 'Guía local' },
           { icon: '🚻', label: 'Acceso a instalaciones: baños, servicios y WiFi' },
           { icon: '☕', label: 'Cafetería disponible' },
-          { icon: '🪶', label: 'Checklist de aves' },
           { icon: '👣', label: 'Ritmo familiar' },
           { icon: '🕒', label: 'Duración: 2 horas y media' },
           { icon: '🍍', label: 'Frutas' },
@@ -128,7 +123,6 @@ const content = {
           { icon: '🧭', label: 'Guía local certificado' },
           { icon: '🚻', label: 'Acceso a instalaciones: baños, servicios y WiFi' },
           { icon: '☕', label: 'Cafetería disponible' },
-          { icon: '🪶', label: 'Checklist de aves' },
           { icon: '👣', label: 'Ritmo familiar' },
           { icon: '🕒', label: 'Duración: 3 horas' },
           { icon: '🍍', label: 'Frutas' },
@@ -214,12 +208,14 @@ const content = {
     homeAria: 'La Vieja Adventures Birdwatching home',
     menu: 'Menu',
     openMobileMenu: 'Open mobile menu',
+    instagramAria: 'Open La Vieja Birdwatching Instagram',
+    instagramLabel: 'Instagram',
     skipLink: 'Skip to main content',
     navItems: [
       { label: 'Experiences', href: '#experiencias' },
       { label: 'Gallery', href: '#galeria' },
       { label: 'Birds of the month', href: '#aves-destacadas' },
-      { label: 'Tour checklist', href: '/birdwatching/checklist' },
+      { label: 'Bookings', href: '/reservas' },
       { label: 'Reviews', href: '/reviews' },
       { label: 'Includes', href: '#incluye' },
       { label: 'FAQ', href: '#faq' },
@@ -246,14 +242,6 @@ const content = {
     ],
     highlightsAria: 'Featured benefits',
     highlights: ['Expert local guides', 'Fast reservations via WhatsApp', 'Low-impact rural tourism'],
-    checklistEyebrow: 'New · During the tour',
-    checklistTitle: 'Take your bird checklist on the trail',
-    checklistDescription:
-      'As you walk the trails, mark every bird you see, hear, or photograph right from your phone. Your progress saves automatically and you can download a digital keepsake of your experience at the end.',
-    checklistFeatures: ['Built for your phone', 'Saves your progress automatically', 'Download your keepsake as image or PDF'],
-    checklistCta: 'Open the tour checklist',
-    checklistHint: 'Free · no sign-up',
-    checklistNav: 'Checklist',
     introEyebrow: 'Nature, adventure, and authenticity',
     introTitle: 'An experience designed to see more than birds.',
     introParagraphs: [
@@ -285,14 +273,13 @@ const content = {
         eyebrow: 'With naturalist interpretation',
         duration: '2.5 hours',
         availability: 'Weekends only',
-        price: '₡25,000',
-        priceUsd: '≈ $50 USD',
+        price: '₡15,000',
+        priceUsd: '≈ $30 USD',
         copy: 'A guided walk through trails, observation stations, and high-activity points to discover local species with naturalist interpretation.',
         points: [
           { icon: '🧭', label: 'Local guide' },
           { icon: '🚻', label: 'Access to facilities: restrooms, services, and WiFi' },
           { icon: '☕', label: 'Coffee shop available' },
-          { icon: '🪶', label: 'Bird checklist' },
           { icon: '👣', label: 'Family-friendly pace' },
           { icon: '🕒', label: 'Duration: 2.5 hours' },
           { icon: '🍍', label: 'Fresh fruit' },
@@ -312,7 +299,6 @@ const content = {
           { icon: '🧭', label: 'Certified local guide' },
           { icon: '🚻', label: 'Access to facilities: restrooms, services, and WiFi' },
           { icon: '☕', label: 'Coffee shop available' },
-          { icon: '🪶', label: 'Bird checklist' },
           { icon: '👣', label: 'Family-friendly pace' },
           { icon: '🕒', label: 'Duration: 3 hours' },
           { icon: '🍍', label: 'Fresh fruit' },
@@ -390,6 +376,16 @@ const content = {
   },
 };
 
+function InstagramIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.5" cy="6.5" r="1.25" fill="currentColor" />
+    </svg>
+  );
+}
+
 export default function Home() {
   const [language, setLanguage] = useState<Language>('es');
   const t = content[language];
@@ -404,9 +400,10 @@ export default function Home() {
   const gallery: GalleryImage[] = useMemo(
     () =>
       galleryImages.map((image) => ({
-        src: birdwatchingImage(image.file),
+        src: galleryImagePath(image),
         alt: image[language].alt,
         label: image[language].label,
+        credit: galleryImageCredit(image),
         scientificName: image.scientificName,
       })),
     [language]
@@ -474,6 +471,15 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-3">
+            <a
+              href={instagramUrl}
+              className="hidden h-11 w-11 place-items-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-amber-200 sm:grid"
+              target="_blank"
+              rel="noreferrer"
+              aria-label={t.instagramAria}
+            >
+              <InstagramIcon className="h-5 w-5" />
+            </a>
             <button
               type="button"
               onClick={() => setLanguage(nextLanguage)}
@@ -483,9 +489,9 @@ export default function Home() {
             >
               {t.languageToggle}
             </button>
-            <a href={whatsappUrl} className="btn btn-small hidden sm:inline-flex" target="_blank" rel="noreferrer">
+            <Link href="/reservas" className="btn btn-small hidden sm:inline-flex">
               {t.reserve}
-            </a>
+            </Link>
             <details className="mobile-menu lg:hidden">
               <summary aria-label={t.openMobileMenu}>{t.menu}</summary>
               <div className="absolute right-4 top-16 w-[min(22rem,calc(100vw-2rem))] rounded-3xl border border-white/15 bg-[#07180f] p-4 shadow-2xl">
@@ -494,6 +500,15 @@ export default function Home() {
                     {item.label}
                   </a>
                 ))}
+                <a
+                  href={instagramUrl}
+                  className="mt-2 flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold text-white/85 hover:bg-white/10 hover:text-white"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <InstagramIcon className="h-5 w-5" />
+                  {t.instagramLabel}
+                </a>
                 <a href={whatsappUrl} className="btn mt-3 w-full justify-center" target="_blank" rel="noreferrer">
                   {t.reserveWhatsapp}
                 </a>
@@ -525,9 +540,9 @@ export default function Home() {
               {t.heroDescription}
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href={whatsappUrl} className="btn" target="_blank" rel="noreferrer">
+              <Link href="/reservas" className="btn">
                 {t.reserveTour}
-              </a>
+              </Link>
               <a href="#contacto" className="btn btn-ghost">
                 {t.contact}
               </a>
@@ -568,50 +583,13 @@ export default function Home() {
 
       <section className="section" aria-labelledby="intro-title">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14">
-            <div className="reveal">
-              <p className="eyebrow text-emerald-900">{t.introEyebrow}</p>
-              <h2 id="intro-title" className="section-title">{t.introTitle}</h2>
-              <div className="mt-6 space-y-5 text-lg leading-8 text-slate-700">
-                {t.introParagraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-            </div>
-
-            <div
-              id="checklist-cta"
-              className="reveal reveal-delay relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-teal-500 via-emerald-600 to-emerald-800 p-8 text-white shadow-2xl shadow-emerald-900/30 sm:p-10"
-            >
-              <div className="pointer-events-none absolute -right-12 -top-12 h-56 w-56 rounded-full bg-amber-200/25 blur-3xl" aria-hidden="true" />
-              <div className="pointer-events-none absolute -bottom-16 left-8 h-64 w-64 rounded-full bg-teal-200/20 blur-3xl" aria-hidden="true" />
-
-              <div className="relative">
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-amber-100 backdrop-blur-sm">
-                  <span aria-hidden="true">🪶</span>
-                  {t.checklistEyebrow}
-                </span>
-                <h3 className="mt-5 font-serif text-3xl font-black leading-tight tracking-tight sm:text-4xl">
-                  {t.checklistTitle}
-                </h3>
-                <p className="mt-4 text-lg leading-8 text-white/85">{t.checklistDescription}</p>
-                <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-bold text-white/90">
-                  {t.checklistFeatures.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2">
-                      <span className="grid h-5 w-5 place-items-center rounded-full bg-amber-200 text-xs text-emerald-950" aria-hidden="true">✓</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8 flex flex-col items-start gap-3">
-                  <a href="/birdwatching/checklist" className="btn group w-full justify-center text-base sm:w-auto">
-                    <span aria-hidden="true" className="transition-transform group-hover:-translate-x-0.5">✓</span>
-                    {t.checklistCta}
-                    <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
-                  </a>
-                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">{t.checklistHint}</span>
-                </div>
-              </div>
+          <div className="max-w-3xl reveal">
+            <p className="eyebrow text-emerald-900">{t.introEyebrow}</p>
+            <h2 id="intro-title" className="section-title">{t.introTitle}</h2>
+            <div className="mt-6 space-y-5 text-lg leading-8 text-slate-700">
+              {t.introParagraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
           </div>
         </div>
@@ -751,9 +729,9 @@ export default function Home() {
                 {t.conversionTitle}
               </h2>
               <p className="mt-5 text-lg leading-8 text-white/80">{t.conversionDescription}</p>
-              <a href={whatsappUrl} className="btn mt-8" target="_blank" rel="noreferrer">
+              <Link href="/reservas" className="btn mt-8">
                 {t.reserveNow}
-              </a>
+              </Link>
             </div>
           </div>
         </div>
