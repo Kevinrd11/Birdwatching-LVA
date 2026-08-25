@@ -502,7 +502,7 @@ export default function ReservationFlow() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
-        <section className="overflow-hidden rounded-[2rem] border border-emerald-950/10 bg-white shadow-2xl shadow-emerald-950/10">
+        <section className="overflow-hidden rounded-lg border border-emerald-950/10 bg-white shadow-sm">
           <div className="border-b border-emerald-950/10 bg-[#07180f] px-4 py-5 text-white sm:px-6">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-200">Sistema de reservas</p>
             <h1 className="mt-2 font-serif text-3xl font-black tracking-tight sm:text-4xl">
@@ -904,7 +904,7 @@ export default function ReservationFlow() {
         </section>
 
         <aside className="lg:sticky lg:top-24">
-          <div className="rounded-[2rem] border border-emerald-950/10 bg-[#07180f] p-5 text-white shadow-2xl shadow-emerald-950/20">
+          <div className="rounded-lg border border-emerald-950/10 bg-[#07180f] p-5 text-white shadow-sm">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-200">Resumen</p>
             <h2 className="mt-2 font-serif text-2xl font-black">Tu reserva</h2>
             <SummaryLine label="Fecha" value={selectedDate ? longDate(selectedDate) : 'Pendiente'} />

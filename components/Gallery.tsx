@@ -91,48 +91,36 @@ export default function Gallery({ images, ui }: GalleryProps) {
 
   return (
     <>
-      <ul className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+      <ul className="reveal mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
         {images.map((image, index) => (
-          <li key={image.src} className="reveal">
+          <li key={image.src}>
             <button
               type="button"
               onClick={() => open(index)}
               aria-label={`${ui.open}: ${image.label}`}
               aria-haspopup="dialog"
-              className="group relative block aspect-[4/3] w-full overflow-hidden rounded-[2rem] border border-emerald-950/10 bg-[#edf3e6] shadow-xl shadow-emerald-950/10 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-amber-300"
+              className="group relative block aspect-[4/3] w-full overflow-hidden rounded-sm bg-[#e6e0d4] focus:outline-none focus-visible:ring-4 focus-visible:ring-amber-300"
             >
               <Image
                 src={image.src}
                 alt={image.alt}
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                className="object-contain p-3 transition duration-500 group-hover:scale-[1.02]"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.015]"
                 priority={index < 3}
               />
-              <span
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-emerald-950/78 via-emerald-950/24 to-transparent"
-                aria-hidden="true"
-              />
-              <span className="pointer-events-none absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 text-left">
-                <span className="min-w-0">
-                  <span className="block text-sm font-black leading-tight text-white drop-shadow-sm">{image.label}</span>
-                  {image.scientificName && (
-                    <span className="block text-xs font-semibold italic text-amber-200/90">{image.scientificName}</span>
-                  )}
-                </span>
-                {image.credit && (
-                  <span className="shrink-0 pb-0.5 text-[0.62rem] font-black uppercase tracking-[0.14em] text-white/70 drop-shadow-[0_2px_6px_rgba(0,0,0,.9)]">
-                    {image.credit}
-                  </span>
-                )}
-              </span>
-              <span
-                className="pointer-events-none absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white/90 text-lg text-emerald-950 opacity-0 shadow-lg transition duration-300 group-hover:opacity-100"
-                aria-hidden="true"
-              >
-                ⤢
-              </span>
             </button>
+            <div className="mt-4 flex items-start justify-between gap-4">
+              <div>
+                <p className="font-serif text-lg font-semibold leading-tight text-emerald-950">{image.label}</p>
+                {image.scientificName && (
+                  <p className="mt-1 text-sm italic text-emerald-800">{image.scientificName}</p>
+                )}
+              </div>
+              {image.credit && (
+                <p className="shrink-0 text-[.65rem] uppercase tracking-[0.12em] text-slate-500">{image.credit}</p>
+              )}
+            </div>
           </li>
         ))}
       </ul>
