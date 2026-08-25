@@ -49,21 +49,10 @@ const content = {
     contact: 'Contactar',
     seeExperiences: 'Ver Experiencias',
     reserveWhatsapp: 'Reservar por WhatsApp',
-    keyFactsAria: 'Datos clave del tour',
     heroEyebrow: 'Birdwatching premium en Costa Rica',
     heroTitle: 'La Vieja Adventures Birdwatching',
     heroDescription:
       'Observa, fotografía y conecta con la biodiversidad de Sucre, San Carlos, en una experiencia guiada por locales que conocen los ritmos del bosque tropical.',
-    recommendedEyebrow: 'Experiencia recomendada',
-    recommendedTitle: 'Sunrise Birdwatching + Café Local',
-    recommendedDescription:
-      'Salida al amanecer, senderos privados, fotografía ética y cierre con café costarricense.',
-    benefits: [
-      { value: '120+', label: 'especies potenciales en la zona' },
-      { value: '5:30', label: 'hora recomendada de salida' },
-      { value: '100%', label: 'experiencia local auténtica' },
-      { value: 'Bajo', label: 'impacto ambiental del tour' },
-    ],
     highlightsAria: 'Beneficios destacados',
     highlights: ['Guías locales expertos', 'Reservas rápidas por WhatsApp', 'Turismo rural de bajo impacto'],
     introEyebrow: 'Naturaleza, aventura y autenticidad',
@@ -225,21 +214,10 @@ const content = {
     contact: 'Contact',
     seeExperiences: 'See Experiences',
     reserveWhatsapp: 'Book on WhatsApp',
-    keyFactsAria: 'Key tour facts',
     heroEyebrow: 'Premium birdwatching in Costa Rica',
     heroTitle: 'La Vieja Adventures Birdwatching',
     heroDescription:
       'Observe, photograph, and connect with the biodiversity of Sucre, San Carlos, through a guided experience led by locals who understand the rhythms of the tropical forest.',
-    recommendedEyebrow: 'Recommended experience',
-    recommendedTitle: 'Sunrise Birdwatching + Local Coffee',
-    recommendedDescription:
-      'An early-morning departure, private trails, ethical photography, and a closing moment with Costa Rican coffee.',
-    benefits: [
-      { value: '120+', label: 'potential species in the area' },
-      { value: '5:30', label: 'recommended departure time' },
-      { value: '100%', label: 'authentic local experience' },
-      { value: 'Low', label: 'environmental impact tour' },
-    ],
     highlightsAria: 'Featured benefits',
     highlights: ['Expert local guides', 'Fast reservations via WhatsApp', 'Low-impact rural tourism'],
     introEyebrow: 'Nature, adventure, and authenticity',
@@ -530,7 +508,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_70%_25%,rgba(217,171,83,.28),transparent_34%),linear-gradient(90deg,rgba(4,18,12,.95),rgba(4,18,12,.67)_42%,rgba(4,18,12,.18))]" />
 
-        <div id="contenido" className="mx-auto grid min-h-[100svh] max-w-7xl items-center px-4 pb-20 pt-32 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
+        <div id="contenido" className="mx-auto grid min-h-[100svh] max-w-7xl items-center px-4 pb-20 pt-32 sm:px-6 lg:px-8">
           <div className="max-w-3xl reveal">
             <p className="eyebrow text-emerald-100">{t.heroEyebrow}</p>
             <h1 className="mt-5 font-serif text-5xl font-black leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
@@ -552,21 +530,6 @@ export default function Home() {
             </div>
           </div>
 
-          <aside className="mt-12 grid gap-4 lg:mt-0 reveal reveal-delay" aria-label={t.keyFactsAria}>
-            <div className="premium-card bg-white/12 text-white backdrop-blur-md">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-100">{t.recommendedEyebrow}</p>
-              <h2 className="mt-3 font-serif text-3xl font-bold">{t.recommendedTitle}</h2>
-              <p className="mt-4 text-white/78">{t.recommendedDescription}</p>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {t.benefits.map((item) => (
-                <div key={item.label} className="rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur-md">
-                  <strong className="block font-serif text-3xl text-amber-200">{item.value}</strong>
-                  <span className="mt-2 block text-sm text-white/76">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </aside>
         </div>
       </section>
 
