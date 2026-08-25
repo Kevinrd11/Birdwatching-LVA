@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
-import ScrollReveal from '@/components/ScrollReveal';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -11,7 +10,7 @@ const inter = Inter({
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
+  weight: ['700', '900'],
   variable: '--font-playfair',
   display: 'swap',
 });
@@ -79,10 +78,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es-CR" className={`${inter.variable} ${playfair.variable}`} data-scroll-behavior="smooth">
-      <body className="font-sans">
-        <ScrollReveal />
-        {children}
-      </body>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

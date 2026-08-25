@@ -49,10 +49,21 @@ const content = {
     contact: 'Contactar',
     seeExperiences: 'Ver Experiencias',
     reserveWhatsapp: 'Reservar por WhatsApp',
+    keyFactsAria: 'Datos clave del tour',
     heroEyebrow: 'Birdwatching premium en Costa Rica',
     heroTitle: 'La Vieja Adventures Birdwatching',
     heroDescription:
       'Observa, fotografía y conecta con la biodiversidad de Sucre, San Carlos, en una experiencia guiada por locales que conocen los ritmos del bosque tropical.',
+    recommendedEyebrow: 'Experiencia recomendada',
+    recommendedTitle: 'Sunrise Birdwatching + Café Local',
+    recommendedDescription:
+      'Salida al amanecer, senderos privados, fotografía ética y cierre con café costarricense.',
+    benefits: [
+      { value: '120+', label: 'especies potenciales en la zona' },
+      { value: '5:30', label: 'hora recomendada de salida' },
+      { value: '100%', label: 'experiencia local auténtica' },
+      { value: 'Bajo', label: 'impacto ambiental del tour' },
+    ],
     highlightsAria: 'Beneficios destacados',
     highlights: ['Guías locales expertos', 'Reservas rápidas por WhatsApp', 'Turismo rural de bajo impacto'],
     introEyebrow: 'Naturaleza, aventura y autenticidad',
@@ -145,6 +156,11 @@ const content = {
       'Recomendaciones antes del tour para ropa, equipo y seguridad',
       'Opciones privadas para parejas, familias y grupos pequeños',
     ],
+    conversionEyebrow: 'Mejor conversión',
+    conversionTitle: 'Reserva temprano. El bosque se despierta antes que el sol.',
+    conversionDescription:
+      'Las primeras horas ofrecen mejor luz, menos calor y mayor actividad de aves. Recomendamos confirmar disponibilidad con anticipación.',
+    reserveNow: 'Reservar ahora',
     faqEyebrow: 'FAQ',
     faqTitle: 'Preguntas frecuentes antes de reservar.',
     faqs: [
@@ -176,7 +192,6 @@ const content = {
     explore: 'Explorar',
     footerContact: 'Contacto',
     copyright: '© 2026 La Vieja Adventures. Experiencias de turismo responsable en Costa Rica.',
-    designerCredit: 'Diseño y desarrollo por Kevin Rojas Durán',
     photoCreditPrefix: 'Fotografías tomadas en La Vieja Adventures y enlazadas desde ',
     photoCreditSuffix: ' como material visual propio del repositorio.',
     schemaDescription:
@@ -210,10 +225,21 @@ const content = {
     contact: 'Contact',
     seeExperiences: 'See Experiences',
     reserveWhatsapp: 'Book on WhatsApp',
+    keyFactsAria: 'Key tour facts',
     heroEyebrow: 'Premium birdwatching in Costa Rica',
     heroTitle: 'La Vieja Adventures Birdwatching',
     heroDescription:
       'Observe, photograph, and connect with the biodiversity of Sucre, San Carlos, through a guided experience led by locals who understand the rhythms of the tropical forest.',
+    recommendedEyebrow: 'Recommended experience',
+    recommendedTitle: 'Sunrise Birdwatching + Local Coffee',
+    recommendedDescription:
+      'An early-morning departure, private trails, ethical photography, and a closing moment with Costa Rican coffee.',
+    benefits: [
+      { value: '120+', label: 'potential species in the area' },
+      { value: '5:30', label: 'recommended departure time' },
+      { value: '100%', label: 'authentic local experience' },
+      { value: 'Low', label: 'environmental impact tour' },
+    ],
     highlightsAria: 'Featured benefits',
     highlights: ['Expert local guides', 'Fast reservations via WhatsApp', 'Low-impact rural tourism'],
     introEyebrow: 'Nature, adventure, and authenticity',
@@ -306,6 +332,11 @@ const content = {
       'Pre-tour recommendations for clothing, gear, and safety',
       'Private options for couples, families, and small groups',
     ],
+    conversionEyebrow: 'Best timing',
+    conversionTitle: 'Book early. The forest wakes before the sun.',
+    conversionDescription:
+      'The first hours offer better light, less heat, and more bird activity. We recommend confirming availability in advance.',
+    reserveNow: 'Book now',
     faqEyebrow: 'FAQ',
     faqTitle: 'Frequently asked questions before booking.',
     faqs: [
@@ -337,7 +368,6 @@ const content = {
     explore: 'Explore',
     footerContact: 'Contact',
     copyright: '© 2026 La Vieja Adventures. Responsible tourism experiences in Costa Rica.',
-    designerCredit: 'Design & development by Kevin Rojas Durán',
     photoCreditPrefix: 'Photos taken at La Vieja Adventures and linked from ',
     photoCreditSuffix: ' as visual material owned by this repository.',
     schemaDescription:
@@ -378,7 +408,6 @@ export default function Home() {
       })),
     [language]
   );
-  const galleryFeature = gallery.find((image) => image.src.includes('b8cd51a3')) ?? gallery[0];
 
   const jsonLd = useMemo(
     () => ({
@@ -414,10 +443,10 @@ export default function Home() {
         {t.skipLink}
       </a>
 
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#07180f]/95 text-white backdrop-blur-sm">
+      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#07180f]/80 text-white shadow-2xl shadow-black/10 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label={t.navAria}>
           <a href="#inicio" className="group flex items-center gap-3 text-white" aria-label={t.homeAria}>
-            <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-full border border-white/20 bg-[#f8f3e8]">
+            <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-full border border-emerald-200/30 bg-[#f8f3e8] shadow-inner shadow-white/10 transition-transform group-hover:scale-105">
               <Image
                 src="/logo-emblem.jpeg"
                 alt="La Vieja Adventures Birdwatching"
@@ -428,14 +457,14 @@ export default function Home() {
               />
             </span>
             <span className="leading-tight">
-              <span className="block text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100">La Vieja</span>
-              <span className="block font-serif text-lg font-semibold tracking-tight">Adventures</span>
+              <span className="block text-sm font-bold uppercase tracking-[0.22em] text-emerald-100">La Vieja</span>
+              <span className="block font-serif text-lg font-bold tracking-tight">Adventures</span>
             </span>
           </a>
 
           <div className="hidden items-center gap-8 lg:flex">
             {t.navItems.map((item) => (
-              <a key={item.href} href={item.href} className="text-sm font-medium text-white/72 transition-colors duration-300 hover:text-white">
+              <a key={item.href} href={item.href} className="text-sm font-semibold text-white/80 transition hover:text-white">
                 {item.label}
               </a>
             ))}
@@ -444,7 +473,7 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <a
               href={instagramUrl}
-              className="hidden h-10 w-10 place-items-center rounded-full border border-white/20 text-white/80 transition-colors duration-300 hover:border-white/40 hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-200 sm:grid"
+              className="hidden h-11 w-11 place-items-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-amber-200 sm:grid"
               target="_blank"
               rel="noreferrer"
               aria-label={t.instagramAria}
@@ -454,26 +483,26 @@ export default function Home() {
             <button
               type="button"
               onClick={() => setLanguage(nextLanguage)}
-              className="rounded border border-white/20 px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/85 transition-colors duration-300 hover:border-white/40 hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-200"
+              className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-xs font-black uppercase tracking-[0.16em] text-white transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-amber-200"
               aria-label={t.languageToggleAria}
               aria-live="polite"
             >
               {t.languageToggle}
             </button>
-            <Link href="/reservas" className="header-reserve btn btn-small">
+            <Link href="/reservas" className="btn btn-small hidden sm:inline-flex">
               {t.reserve}
             </Link>
             <details className="mobile-menu lg:hidden">
               <summary aria-label={t.openMobileMenu}>{t.menu}</summary>
-              <div className="absolute right-4 top-16 w-[min(22rem,calc(100vw-2rem))] rounded-lg border border-white/15 bg-[#07180f] p-4 shadow-xl">
+              <div className="absolute right-4 top-16 w-[min(22rem,calc(100vw-2rem))] rounded-3xl border border-white/15 bg-[#07180f] p-4 shadow-2xl">
                 {t.navItems.map((item) => (
-                  <a key={item.href} href={item.href} className="block rounded px-4 py-3 font-medium text-white/80 hover:bg-white/5 hover:text-white">
+                  <a key={item.href} href={item.href} className="block rounded-2xl px-4 py-3 font-semibold text-white/85 hover:bg-white/10 hover:text-white">
                     {item.label}
                   </a>
                 ))}
                 <a
                   href={instagramUrl}
-                  className="mt-2 flex items-center gap-3 rounded px-4 py-3 font-medium text-white/80 hover:bg-white/5 hover:text-white"
+                  className="mt-2 flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold text-white/85 hover:bg-white/10 hover:text-white"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -489,100 +518,132 @@ export default function Home() {
         </nav>
       </header>
 
-      <section id="inicio" className="hero relative isolate min-h-[92svh] overflow-hidden text-white">
+      <section id="inicio" className="hero relative isolate min-h-[100svh] overflow-hidden text-white">
         <Image
           src={heroImage}
           alt=""
           fill
           priority
           sizes="100vw"
-          className="-z-20 object-cover object-[58%_center]"
+          className="-z-20 object-cover object-center"
           aria-hidden="true"
         />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(4,18,12,.9),rgba(4,18,12,.56)_55%,rgba(4,18,12,.18)),linear-gradient(0deg,rgba(4,18,12,.42),transparent_45%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_70%_25%,rgba(217,171,83,.28),transparent_34%),linear-gradient(90deg,rgba(4,18,12,.95),rgba(4,18,12,.67)_42%,rgba(4,18,12,.18))]" />
 
-        <div id="contenido" className="mx-auto flex min-h-[92svh] max-w-7xl items-end px-4 pb-16 pt-32 sm:px-6 sm:pb-20 lg:px-8 lg:pb-24">
-          <div className="hero-copy max-w-[48rem]">
+        <div id="contenido" className="mx-auto grid min-h-[100svh] max-w-7xl items-center px-4 pb-20 pt-32 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
+          <div className="max-w-3xl reveal">
             <p className="eyebrow text-emerald-100">{t.heroEyebrow}</p>
-            <h1 className="mt-5 font-serif text-[clamp(3rem,6vw,5.6rem)] font-semibold leading-[0.96] tracking-[-0.035em]">
+            <h1 className="mt-5 font-serif text-5xl font-black leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
               {t.heroTitle}
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/82 sm:text-xl">
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/86 sm:text-xl">
               {t.heroDescription}
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link href="/reservas" className="btn">
                 {t.reserveTour}
               </Link>
-              <a href="#experiencias" className="text-link text-link-light">
-                {t.seeExperiences} <span aria-hidden="true">↓</span>
+              <a href="#contacto" className="btn btn-ghost">
+                {t.contact}
+              </a>
+              <a href="#experiencias" className="btn btn-glass">
+                {t.seeExperiences}
               </a>
             </div>
           </div>
+
+          <aside className="mt-12 grid gap-4 lg:mt-0 reveal reveal-delay" aria-label={t.keyFactsAria}>
+            <div className="premium-card bg-white/12 text-white backdrop-blur-md">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-100">{t.recommendedEyebrow}</p>
+              <h2 className="mt-3 font-serif text-3xl font-bold">{t.recommendedTitle}</h2>
+              <p className="mt-4 text-white/78">{t.recommendedDescription}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {t.benefits.map((item) => (
+                <div key={item.label} className="rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur-md">
+                  <strong className="block font-serif text-3xl text-amber-200">{item.value}</strong>
+                  <span className="mt-2 block text-sm text-white/76">{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section className="border-b border-emerald-950/10 bg-[#f8f3e8] px-4 py-7 sm:px-6 lg:px-8" aria-label={t.highlightsAria}>
-        <div className="mx-auto grid max-w-7xl gap-3 md:grid-cols-3 md:gap-8">
+      <section className="relative z-10 -mt-10 px-4 sm:px-6 lg:px-8" aria-label={t.highlightsAria}>
+        <div className="mx-auto grid max-w-7xl gap-4 rounded-[2rem] border border-emerald-950/10 bg-white p-4 shadow-2xl shadow-emerald-950/10 md:grid-cols-3">
           {t.highlights.map((item) => (
-            <p key={item} className="border-l border-emerald-900/25 pl-4 text-sm font-medium leading-6 text-emerald-950/80">{item}</p>
+            <div key={item} className="flex items-center gap-4 rounded-[1.5rem] bg-emerald-50 p-5">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-emerald-900 text-amber-200">✓</span>
+              <p className="font-bold text-emerald-950">{item}</p>
+            </div>
           ))}
         </div>
       </section>
 
       <section className="section" aria-labelledby="intro-title">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[.82fr_1.18fr] lg:items-center lg:gap-20 lg:px-8">
-          <div className="reveal">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl reveal">
             <p className="eyebrow text-emerald-900">{t.introEyebrow}</p>
             <h2 id="intro-title" className="section-title">{t.introTitle}</h2>
-            <div className="mt-7 space-y-5 text-[1.05rem] leading-8 text-slate-700">
+            <div className="mt-6 space-y-5 text-lg leading-8 text-slate-700">
               {t.introParagraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
           </div>
-          <figure className="reveal relative aspect-[5/4] overflow-hidden bg-[#e7e2d7] lg:aspect-[4/5]">
-            <Image
-              src={birdwatchingImage('2f727422-8f07-4936-8c40-69e9d530a087.jpeg')}
-              alt={t.bookingImageAlt}
-              fill
-              sizes="(max-width: 1024px) 100vw, 54vw"
-              className="object-cover"
-            />
-          </figure>
         </div>
       </section>
 
-      <section id="experiencias" className="section border-y border-emerald-950/8 bg-[#f1ece1]" aria-labelledby="experiences-title">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl reveal">
-            <p className="eyebrow text-emerald-800">{t.experiencesEyebrow}</p>
-            <h2 id="experiences-title" className="section-title">{t.experiencesTitle}</h2>
+      <section id="experiencias" className="section relative overflow-hidden bg-[#07180f] text-white" aria-labelledby="experiences-title">
+        {/* Foto real de la galería como textura de fondo (oscurecida para legibilidad). */}
+        <Image
+          src={birdwatchingImage('8a916eb1-9ac7-4eef-9ca5-4e7fca45fbe7.jpeg')}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+          aria-hidden="true"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-[#07180f]/88" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#f8f3e8] to-transparent" aria-hidden="true" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center reveal">
+            <p className="eyebrow text-amber-200">{t.experiencesEyebrow}</p>
+            <h2 id="experiences-title" className="section-title text-white">{t.experiencesTitle}</h2>
           </div>
-          <div className="mt-14 grid border-y border-emerald-950/15 lg:grid-cols-3">
+          <div className="mt-14 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {t.experiences.map((experience) => (
               <article
                 key={experience.title}
-                className="flex flex-col border-b border-emerald-950/15 py-8 last:border-b-0 lg:border-b-0 lg:border-r lg:px-8 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0"
+                className={`experience-card reveal flex flex-col ${
+                  experience.featured ? 'experience-card-featured sm:col-span-2 lg:col-span-1' : ''
+                }`}
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-800">{experience.eyebrow}</p>
-                <h3 className="mt-4 font-serif text-3xl font-semibold text-emerald-950">{experience.title}</h3>
-                <p className="mt-5 flex items-baseline gap-2">
-                  <span className="font-serif text-3xl font-semibold text-emerald-950">{experience.price}</span>
-                  <span className="text-sm text-slate-500">{experience.priceUsd}</span>
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-amber-200">{experience.eyebrow}</p>
+                <h3 className="mt-4 font-serif text-2xl font-bold">{experience.title}</h3>
+                <p className="mt-3 flex items-baseline gap-2">
+                  <span className="font-serif text-3xl font-black text-amber-200">{experience.price}</span>
+                  <span className="text-sm font-semibold text-white/65">{experience.priceUsd}</span>
                 </p>
-                <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-emerald-950/65">
-                  <span>{experience.duration}</span>
-                  <span>{experience.availability}</span>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-emerald-100">
+                    <span aria-hidden="true" className="opacity-80">🕒</span>
+                    {experience.duration}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-emerald-100">
+                    <span aria-hidden="true" className="opacity-80">📅</span>
+                    {experience.availability}
+                  </span>
                 </div>
-                <p className="mt-6 text-[.95rem] leading-7 text-slate-700">{experience.copy}</p>
-                <p className="mt-7 text-xs font-semibold uppercase tracking-[0.15em] text-emerald-800">
+                <p className="mt-5 text-sm leading-7 text-white/72">{experience.copy}</p>
+                <p className="mt-6 text-xs font-black uppercase tracking-[0.18em] text-emerald-100/70">
                   {t.experiencesIncludesLabel}
                 </p>
-                <ul className="mt-3 space-y-2.5">
+                <ul className="mt-3 space-y-3">
                   {experience.points.map((point) => (
-                    <li key={point.label} className="flex gap-3 text-sm leading-6 text-slate-700">
-                      <span className="text-emerald-800/60" aria-hidden="true">—</span>
+                    <li key={point.label} className="flex gap-3 text-sm text-white/82">
+                      <span className="shrink-0 opacity-80" aria-hidden="true">{point.icon}</span>
                       {point.label}
                     </li>
                   ))}
@@ -590,11 +651,13 @@ export default function Home() {
                 <div className="mt-8 flex flex-1 items-end">
                   <a
                     href={whatsappUrl}
-                    className="text-link"
+                    className={`btn btn-small w-full justify-center text-center ${
+                      experience.featured ? '' : 'btn-glass'
+                    }`}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {experience.cta} <span aria-hidden="true">→</span>
+                    {experience.cta}
                   </a>
                 </div>
               </article>
@@ -603,59 +666,86 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="galeria" className="section bg-[#07180f] text-white" aria-labelledby="gallery-title">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1.2fr_.8fr] lg:items-center lg:gap-20 lg:px-8">
-          <div className="reveal relative aspect-[5/4] overflow-hidden bg-[#0c2418]">
-            <Image
-              src={galleryFeature.src}
-              alt={galleryFeature.alt}
-              fill
-              sizes="(max-width: 1024px) 100vw, 58vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="reveal">
-            <p className="eyebrow text-amber-200">{t.galleryEyebrow}</p>
-            <h2 id="gallery-title" className="section-title text-white">{t.galleryTitle}</h2>
-            <p className="mt-7 text-lg leading-8 text-white/72">{t.galleryDescription}</p>
-            <Link href="/galeria" className="text-link text-link-light mt-8">
-              {t.galleryViewAll} <span aria-hidden="true">→</span>
-            </Link>
-            <p className="mt-5 text-sm text-white/50">
-              {gallery.length} {t.galleryPhotosLabel}
-            </p>
-          </div>
+      <section id="galeria" className="section relative overflow-hidden bg-[#07180f] text-white" aria-labelledby="gallery-title">
+        <Image
+          src={birdwatchingImage('b8cd51a3-ba04-4c29-88ba-fa3b88e07bf3.jpeg')}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+          aria-hidden="true"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-[#07180f]/85" aria-hidden="true" />
+
+        <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-amber-100 backdrop-blur-sm">
+            <span aria-hidden="true">📸</span>
+            {t.galleryEyebrow}
+          </span>
+          <h2 id="gallery-title" className="mt-6 section-title text-white">{t.galleryTitle}</h2>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/76">{t.galleryDescription}</p>
+          <Link
+            href="/galeria"
+            className="group mt-9 inline-flex items-center gap-3 rounded-full bg-amber-200 px-8 py-4 text-base font-black uppercase tracking-[0.12em] text-emerald-950 shadow-lg shadow-amber-900/20 transition duration-300 hover:scale-[1.03] hover:bg-amber-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-amber-300"
+          >
+            {t.galleryViewAll}
+            <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </Link>
+          <span className="mt-5 text-sm font-semibold uppercase tracking-[0.16em] text-emerald-100/80">
+            {gallery.length} {t.galleryPhotosLabel}
+          </span>
         </div>
       </section>
 
       <MonthlyFeaturedBirds language={language} whatsappNumber={whatsappNumber} variant="cta" />
 
       <section id="incluye" className="section" aria-labelledby="included-title">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[.75fr_1.25fr] lg:gap-20 lg:px-8">
-          <div className="reveal">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center reveal">
             <p className="eyebrow text-emerald-900">{t.includedEyebrow}</p>
             <h2 id="included-title" className="section-title">{t.includedTitle}</h2>
           </div>
-          <div className="grid border-t border-emerald-950/15 sm:grid-cols-2">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {t.included.map((item) => (
-              <div key={item} className="flex gap-4 border-b border-emerald-950/15 py-5 sm:odd:pr-6 sm:even:pl-6">
-                <span className="text-sm text-emerald-800" aria-hidden="true">✓</span>
-                <p className="leading-7 text-slate-700">{item}</p>
+              <div key={item} className="rounded-3xl border border-emerald-950/10 bg-white p-5 shadow-sm reveal">
+                <span className="text-emerald-900">✓</span>
+                <p className="mt-3 font-semibold leading-7 text-slate-800">{item}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Oferta destacada: en su propia sección para que resalte el llamado a reservar. */}
+      <section id="oferta" className="section" aria-labelledby="offer-title">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="premium-card relative overflow-hidden bg-emerald-950 text-center text-white reveal sm:p-12">
+            <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-amber-300/20 blur-3xl" aria-hidden="true" />
+            <div className="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-teal-300/15 blur-3xl" aria-hidden="true" />
+
+            <div className="relative mx-auto max-w-2xl">
+              <p className="eyebrow text-amber-200">{t.conversionEyebrow}</p>
+              <h2 id="offer-title" className="mt-4 font-serif text-3xl font-black leading-tight tracking-tight sm:text-4xl">
+                {t.conversionTitle}
+              </h2>
+              <p className="mt-5 text-lg leading-8 text-white/80">{t.conversionDescription}</p>
+              <Link href="/reservas" className="btn mt-8">
+                {t.reserveNow}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="faq" className="section" aria-labelledby="faq-title">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[.7fr_1.3fr] lg:gap-20 lg:px-8">
-          <div className="reveal">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center reveal">
             <p className="eyebrow text-emerald-900">{t.faqEyebrow}</p>
             <h2 id="faq-title" className="section-title">{t.faqTitle}</h2>
           </div>
-          <div className="border-t border-emerald-950/15">
+          <div className="mt-10 space-y-4">
             {t.faqs.map((faq) => (
-              <details key={faq.q} className="faq-item">
+              <details key={faq.q} className="faq-item reveal">
                 <summary>{faq.q}</summary>
                 <p>{faq.a}</p>
               </details>
@@ -664,32 +754,33 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contacto" className="bg-[#07180f] text-white" aria-labelledby="booking-title">
-        <div className="mx-auto grid max-w-[96rem] lg:grid-cols-[1fr_1fr]">
-            <div className="flex items-center px-4 py-20 sm:px-10 lg:px-16 lg:py-28">
-              <div className="reveal max-w-2xl">
+      <section id="contacto" className="px-4 pb-20 sm:px-6 lg:px-8" aria-labelledby="booking-title">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-[#07180f] text-white shadow-2xl shadow-emerald-950/20">
+          <div className="grid lg:grid-cols-[1.1fr_.9fr]">
+            <div className="p-8 sm:p-12 lg:p-16 reveal">
               <p className="eyebrow text-amber-200">{t.bookingEyebrow}</p>
-              <h2 id="booking-title" className="mt-4 font-serif text-4xl font-semibold tracking-tight sm:text-5xl">{t.bookingTitle}</h2>
-              <p className="mt-6 text-lg leading-8 text-white/72">{t.bookingDescription}</p>
-              <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+              <h2 id="booking-title" className="font-serif text-4xl font-black tracking-tight sm:text-5xl">{t.bookingTitle}</h2>
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-white/76">{t.bookingDescription}</p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a href={whatsappUrl} className="btn" target="_blank" rel="noreferrer">
                   {t.reserveWhatsapp}
                 </a>
-                <a href={`mailto:${siteConfig.email}`} className="text-link text-link-light">
-                  {t.email} <span aria-hidden="true">→</span>
+                <a href={`mailto:${siteConfig.email}`} className="btn btn-ghost">
+                  {t.email}
                 </a>
               </div>
-              </div>
             </div>
-            <div className="relative min-h-[28rem] lg:min-h-[44rem]">
+            <div className="relative min-h-[24rem]">
               <Image
                 src={birdwatchingImage('5207a9ea-d688-41a7-a4b8-4ab7c0e37ecc.jpeg')}
                 alt={t.bookingImageAlt}
                 fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#07180f] via-transparent to-transparent" />
             </div>
+          </div>
         </div>
       </section>
 
@@ -704,12 +795,12 @@ export default function Home() {
                 height={56}
                 className="h-14 w-14 rounded-full border border-white/15 bg-[#f8f3e8] object-cover"
               />
-              <p className="font-serif text-2xl font-semibold">La Vieja Adventures Birdwatching</p>
+              <p className="font-serif text-2xl font-bold">La Vieja Adventures Birdwatching</p>
             </div>
             <p className="mt-4 max-w-xl leading-7 text-white/62">{t.footerDescription}</p>
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-amber-200">{t.explore}</h3>
+            <h3 className="font-bold text-amber-200">{t.explore}</h3>
             <ul className="mt-4 space-y-3 text-white/70">
               {t.navItems.map((item) => (
                 <li key={item.href}><a href={item.href} className="hover:text-white">{item.label}</a></li>
@@ -717,7 +808,7 @@ export default function Home() {
             </ul>
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-amber-200">{t.footerContact}</h3>
+            <h3 className="font-bold text-amber-200">{t.footerContact}</h3>
             <address className="mt-4 space-y-3 not-italic text-white/70">
               <p>{siteConfig.location}</p>
               <a href={whatsappUrl} className="block hover:text-white" target="_blank" rel="noreferrer">WhatsApp: {siteConfig.phoneDisplay}</a>
@@ -725,14 +816,18 @@ export default function Home() {
             </address>
           </div>
         </div>
-        <div className="mx-auto mt-10 flex max-w-7xl flex-col gap-3 border-t border-white/10 pt-6 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
-          <p>{t.copyright}</p>
-          <p className="text-xs tracking-wide text-white/35">{t.designerCredit}</p>
+        <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 pt-6 text-sm text-white/45">
+          {t.copyright}
         </div>
+        <p className="mx-auto mt-4 max-w-7xl text-xs text-white/45">
+          {t.photoCreditPrefix}
+          <code>/public/images/birdwatching</code>
+          {t.photoCreditSuffix}
+        </p>
       </footer>
 
       <a href={whatsappUrl} className="floating-whatsapp" target="_blank" rel="noreferrer" aria-label={t.reserveWhatsapp}>
-        <span aria-hidden="true" className="text-[.65rem] font-bold tracking-wide">WA</span>
+        <span aria-hidden="true">✆</span>
         <span>{t.reserve}</span>
       </a>
     </main>

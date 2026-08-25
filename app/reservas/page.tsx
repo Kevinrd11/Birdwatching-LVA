@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 export default function ReservasPage() {
   return (
     <main className="min-h-screen bg-[#f8f3e8] text-slate-950">
-      <header className="border-b border-white/10 bg-[#07180f] text-white">
+      <header className="border-b border-emerald-950/10 bg-[#07180f] text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <Link href="/" className="group flex items-center gap-3" aria-label="La Vieja Adventures inicio">
-            <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/20 bg-[#f8f3e8]">
+            <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-emerald-200/30 bg-[#f8f3e8]">
               <Image
                 src="/logo-emblem.jpeg"
                 alt="La Vieja Adventures Birdwatching"
@@ -27,13 +27,13 @@ export default function ReservasPage() {
               />
             </span>
             <span className="leading-tight">
-              <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-emerald-100">La Vieja</span>
-              <span className="block font-serif text-base font-semibold tracking-tight">Reservas</span>
+              <span className="block text-xs font-bold uppercase tracking-[0.22em] text-emerald-100">La Vieja</span>
+              <span className="block font-serif text-base font-bold tracking-tight">Reservas</span>
             </span>
           </Link>
           <Link
             href="/"
-            className="text-link text-link-light text-sm"
+            className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-white transition hover:bg-white/20"
           >
             Inicio
           </Link>
@@ -41,10 +41,7 @@ export default function ReservasPage() {
       </header>
 
       <ReservationFlow />
-      <footer className="border-t border-emerald-950/10 px-4 py-8 text-center text-xs text-slate-500">
-        <p>La Vieja Adventures · Sucre, San Carlos, Costa Rica</p>
-        <p className="mt-2 text-slate-400">Diseño y desarrollo por Kevin Rojas Durán</p>
-      </footer>
     </main>
   );
 }
+

@@ -23,8 +23,6 @@ html {
 body {
   margin: 0;
   background: var(--cream);
-  color: #17211b;
-  line-height: 1.6;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -61,26 +59,28 @@ img {
 }
 
 .eyebrow {
-  font-size: .72rem;
-  font-weight: 600;
-  letter-spacing: .18em;
+  font-size: .76rem;
+  font-weight: 950;
+  letter-spacing: .24em;
   text-transform: uppercase;
 }
 
 .section {
-  padding: clamp(5.5rem, 9vw, 9rem) 0;
+  padding: clamp(4.5rem, 8vw, 8rem) 0;
 }
 
 .section-title {
   margin-top: 1rem;
   font-family: var(--font-playfair), Georgia, serif;
-  font-size: clamp(2.35rem, 4.5vw, 4.35rem);
-  font-weight: 600;
-  letter-spacing: -.035em;
-  line-height: 1.03;
+  font-size: clamp(2.35rem, 5vw, 4.7rem);
+  font-weight: 900;
+  letter-spacing: -.045em;
+  line-height: .98;
   color: #07180f;
 }
 
+/* En secciones oscuras el título debe ir claro. La mayor especificidad de este
+   selector asegura que prevalezca sobre el color base de .section-title. */
 .section-title.text-white {
   color: #f8f3e8;
 }
@@ -91,19 +91,19 @@ img {
   justify-content: center;
   gap: .6rem;
   min-height: 3.2rem;
-  border-radius: .35rem;
-  border: 1px solid #d4a34a;
-  background: #d9ab53;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: linear-gradient(135deg, #f5c86a, #d9ab53 45%, #b9822d);
   color: #07180f;
-  padding: .86rem 1.3rem;
-  font-weight: 700;
-  transition: background-color .3s ease, border-color .3s ease, color .3s ease, transform .3s ease;
+  padding: .9rem 1.35rem;
+  font-weight: 950;
+  box-shadow: 0 18px 34px rgba(0,0,0,.18);
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
 }
 
 .btn:hover {
-  background: #e2b763;
-  border-color: #e2b763;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 24px 44px rgba(0,0,0,.24);
 }
 
 .btn:focus-visible,
@@ -124,98 +124,122 @@ button:focus-visible {
   background: transparent;
   color: white;
   border-color: rgba(255,255,255,.34);
+  box-shadow: none;
 }
 
 .btn-ghost:hover {
-  background: rgba(255,255,255,.06);
+  background: rgba(255,255,255,.12);
+}
+
+.btn-glass {
+  background: rgba(255,255,255,.12);
+  color: white;
+  box-shadow: none;
+  backdrop-filter: blur(14px);
 }
 
 .btn-dark {
   background: #07180f;
-  border-color: #07180f;
-  color: white;
-}
-
-.header-reserve {
-  display: inline-flex;
-}
-
-.text-link {
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
-  gap: .55rem;
-  border-bottom: 1px solid rgba(7,24,15,.42);
-  padding-bottom: .18rem;
-  color: #07180f;
-  font-weight: 650;
-  transition: border-color .3s ease, color .3s ease, gap .3s ease;
-}
-
-.text-link:hover {
-  gap: .72rem;
-  border-color: currentColor;
-  color: #245d3e;
-}
-
-.text-link-light {
-  border-color: rgba(255,255,255,.45);
-  color: rgba(255,255,255,.9);
-}
-
-.text-link-light:hover {
   color: white;
 }
 
 .mobile-menu summary {
   cursor: pointer;
   list-style: none;
-  border-radius: .35rem;
+  border-radius: 999px;
   border: 1px solid rgba(255,255,255,.18);
   padding: .65rem .95rem;
-  font-weight: 600;
+  font-weight: 900;
 }
 
 .mobile-menu summary::-webkit-details-marker {
   display: none;
 }
 
+.premium-card {
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 2rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  box-shadow: 0 28px 60px rgba(0,0,0,.18);
+}
+
 .reveal {
-  opacity: 1;
-  transform: translateY(0);
+  animation: reveal-up .78s cubic-bezier(.2,.8,.2,1) both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 26%;
 }
 
-.reveal-ready .reveal:not(.is-visible) {
-  opacity: 0;
-  transform: translateY(12px);
+.reveal-delay {
+  animation-delay: .12s;
 }
 
-.reveal-ready .reveal {
-  transition: opacity .7s cubic-bezier(.22,.65,.3,1), transform .7s cubic-bezier(.22,.65,.3,1);
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.experience-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+  /* Fondo sólido (opaco) en verde de la paleta para que la foto de la sección no
+     se transparente dentro de la tarjeta y los recuadros destaquen como paneles. */
+  border: 1px solid rgba(217,171,83,.24);
+  border-radius: 2rem;
+  background: linear-gradient(160deg, #1c5538 0%, #103425 58%, #0b2417 100%);
+  padding: 1.6rem;
+  box-shadow: 0 22px 44px rgba(0,0,0,.34), inset 0 1px rgba(255,255,255,.08);
+  transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+}
+
+.experience-card::before {
+  content: '';
+  position: absolute;
+  inset: -40% -40% auto auto;
+  height: 11rem;
+  width: 11rem;
+  border-radius: 999px;
+  background: rgba(217,171,83,.16);
+  filter: blur(10px);
+}
+
+.experience-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(217,171,83,.6);
+  background: linear-gradient(160deg, #226a45 0%, #143f29 58%, #0d2a1c 100%);
+  box-shadow: 0 30px 60px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.1);
+}
+
+/* Variante destacada (tour privado): borde dorado y brillo sutil, sin romper la paleta. */
+.experience-card-featured {
+  border-color: rgba(245,200,106,.55);
+  background: linear-gradient(160deg, #24603f 0%, #123a27 58%, #0c2718 100%);
+  box-shadow: 0 26px 54px rgba(0,0,0,.4), 0 0 0 1px rgba(245,200,106,.22), inset 0 1px rgba(255,255,255,.1);
+}
+
+.experience-card-featured::before {
+  background: rgba(245,200,106,.24);
 }
 
 .faq-item {
-  border-bottom: 1px solid rgba(7,24,15,.15);
-  padding: 1.35rem 0;
+  border: 1px solid rgba(7,24,15,.1);
+  border-radius: 1.35rem;
+  background: white;
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 18px 34px rgba(7,24,15,.05);
 }
 
 .faq-item summary {
   cursor: pointer;
   color: #07180f;
-  font-weight: 650;
+  font-weight: 900;
   list-style: none;
-}
-
-.faq-item summary::after {
-  content: '+';
-  float: right;
-  margin-left: 1rem;
-  color: rgba(7,24,15,.55);
-  font-weight: 400;
-}
-
-.faq-item[open] summary::after {
-  content: '−';
 }
 
 .faq-item summary::-webkit-details-marker {
@@ -236,57 +260,27 @@ button:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: .55rem;
-  border: 1px solid rgba(4,18,12,.18);
-  border-radius: .35rem;
+  border-radius: 999px;
   background: #25d366;
   color: #04120c;
-  padding: .72rem .9rem;
-  font-size: .9rem;
-  font-weight: 700;
-  box-shadow: 0 8px 24px rgba(0,0,0,.14);
-  transition: transform .3s ease, background-color .3s ease;
+  padding: .85rem 1rem;
+  font-weight: 950;
+  box-shadow: 0 20px 42px rgba(0,0,0,.24);
+  transition: transform .2s ease;
 }
 
 .floating-whatsapp:hover {
-  background: #3bda74;
-  transform: translateY(-1px);
-}
-
-.hero-copy {
-  animation: hero-enter .8s cubic-bezier(.22,.65,.3,1) both;
-}
-
-@keyframes hero-enter {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  transform: translateY(-3px) scale(1.02);
 }
 
 @media (max-width: 640px) {
   .section {
-    padding: 4.75rem 0;
+    padding: 4.2rem 0;
   }
 
   .floating-whatsapp {
-    right: .75rem;
-    bottom: .75rem;
+    left: 1rem;
     justify-content: center;
-    min-height: 2.9rem;
-    min-width: 2.9rem;
-    padding: .65rem;
-  }
-
-  .floating-whatsapp span:last-child {
-    display: none;
-  }
-
-  .header-reserve {
-    display: none;
   }
 }
 
@@ -298,11 +292,5 @@ button:focus-visible {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: .001ms !important;
-  }
-
-  .reveal,
-  .reveal-ready .reveal:not(.is-visible) {
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
