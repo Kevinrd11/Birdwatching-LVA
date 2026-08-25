@@ -575,6 +575,7 @@ export default function ReservationFlow({ initialExperienceId }: ReservationFlow
                     src={selectedExperience.image}
                     alt={`Naturaleza durante ${selectedExperience.name}`}
                     fill
+                    loading="eager"
                     sizes="(max-width: 640px) 100vw, 208px"
                     className="object-cover"
                   />
