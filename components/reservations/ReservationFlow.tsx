@@ -169,7 +169,11 @@ function buildCalendarGrid(year: number, monthIndex: number): (string | null)[] 
   return grid;
 }
 
-export default function ReservationFlow() {
+type ReservationFlowProps = {
+  initialExperienceId?: string;
+};
+
+export default function ReservationFlow({ initialExperienceId }: ReservationFlowProps) {
   const initialDate = new Date();
   const [step, setStep] = useState<ReservationStepId>('date');
   const [monthCursor, setMonthCursor] = useState(() => new Date(initialDate.getFullYear(), initialDate.getMonth(), 1));
@@ -178,7 +182,7 @@ export default function ReservationFlow() {
   const [dateAvailability, setDateAvailability] = useState<DateAvailability | null>(null);
   const [slots, setSlots] = useState<AvailabilitySlot[]>([]);
   const [selectedDate, setSelectedDate] = useState('');
-  const [selectedExperienceId, setSelectedExperienceId] = useState('');
+  const [selectedExperienceId, setSelectedExperienceId] = useState(initialExperienceId ?? '');
   const [selectedScheduleId, setSelectedScheduleId] = useState('');
   const [participants, setParticipants] = useState<ParticipantSelection>({ adults: 1, children: 0 });
   const [customer, setCustomer] = useState<CustomerDetails>(defaultCustomer);
@@ -196,6 +200,13 @@ export default function ReservationFlow() {
     () => experiences.find((experience) => experience.id === selectedExperienceId),
     [experiences, selectedExperienceId]
   );
+  const displayedExperiences = useMemo(
+    () =>
+      initialExperienceId
+        ? experiences.filter((experience) => experience.id === initialExperienceId)
+        : experiences,
+    [experiences, initialExperienceId]
+  );
   const selectedSlot = useMemo(
     () => slots.find((slot) => slot.scheduleId === selectedScheduleId),
     [slots, selectedScheduleId]
@@ -211,27 +222,35 @@ export default function ReservationFlow() {
   const maxReachableStep = useMemo(() => {
     if (reservation) return 6;
     if (hold) return 5;
-    if (customer.acceptedTerms && customer.acceptedCancellation && customer.acceptedPrivacy && customer.acceptedSafety) return 5;
+    if (
+      selectedScheduleId
+      && customer.acceptedTerms
+      && customer.acceptedCancellation
+      && customer.acceptedPrivacy
+      && customer.acceptedSafety
+    ) return 5;
     if (selectedScheduleId) return 4;
-    if (selectedExperienceId) return 3;
-    if (selectedDate) return 2;
+    if (selectedDate && selectedExperienceId) return 2;
+    if (selectedDate) return 1;
     return 0;
   }, [customer, hold, reservation, selectedDate, selectedExperienceId, selectedScheduleId]);
 
   useEffect(() => {
     const draft = loadDraft();
     if (!draft) return;
-    setStep(draft.step === 'confirmation' ? 'date' : draft.step);
-    setSelectedDate(draft.selectedDate);
-    setSelectedExperienceId(draft.selectedExperienceId);
-    setSelectedScheduleId(draft.selectedScheduleId);
+    const sameExperience = !initialExperienceId || draft.selectedExperienceId === initialExperienceId;
+    const draftDate = sameExperience ? draft.selectedDate : '';
+    setStep(draft.step === 'confirmation' || !sameExperience ? 'date' : draft.step);
+    setSelectedDate(draftDate);
+    setSelectedExperienceId(initialExperienceId ?? draft.selectedExperienceId);
+    setSelectedScheduleId(sameExperience ? draft.selectedScheduleId : '');
     setParticipants(draft.participants);
     setCustomer({ ...defaultCustomer, ...draft.customer });
-    if (draft.selectedDate) {
-      const date = parseDateKey(draft.selectedDate);
+    if (draftDate) {
+      const date = parseDateKey(draftDate);
       setMonthCursor(new Date(date.getFullYear(), date.getMonth(), 1));
     }
-  }, []);
+  }, [initialExperienceId]);
 
   useEffect(() => {
     apiFetch<{ experiences: ReservationExperience[] }>('/api/reservations/experiences')
@@ -243,11 +262,14 @@ export default function ReservationFlow() {
     const year = monthCursor.getFullYear();
     const month = monthCursor.getMonth() + 1;
     setLoading('availability-month');
-    apiFetch<{ days: MonthAvailabilityDay[] }>(`/api/reservations/availability/month?year=${year}&month=${month}`)
+    const experienceQuery = initialExperienceId ? `&experienceId=${encodeURIComponent(initialExperienceId)}` : '';
+    apiFetch<{ days: MonthAvailabilityDay[] }>(
+      `/api/reservations/availability/month?year=${year}&month=${month}${experienceQuery}`
+    )
       .then((data) => setMonthAvailability(data.days))
       .catch((apiError) => setError(apiError instanceof Error ? apiError.message : 'No se pudo cargar el calendario.'))
       .finally(() => setLoading(''));
-  }, [monthCursor]);
+  }, [initialExperienceId, monthCursor]);
 
   useEffect(() => {
     if (!selectedDate) return;
@@ -321,12 +343,12 @@ export default function ReservationFlow() {
   }, [hold]);
 
   const resetAfterDate = useCallback(() => {
-    setSelectedExperienceId('');
+    setSelectedExperienceId(initialExperienceId ?? '');
     setSelectedScheduleId('');
     setSlots([]);
     setHold(null);
     setReservation(null);
-  }, []);
+  }, [initialExperienceId]);
 
   const selectDate = async (date: string, day?: MonthAvailabilityDay) => {
     if (day?.isPast || day?.state === 'blocked' || day?.state === 'sold_out' || day?.state === 'unavailable') return;
@@ -350,7 +372,12 @@ export default function ReservationFlow() {
     setLoading('next-date');
     try {
       const from = selectedDate || formatDateKey(new Date());
-      const data = await apiFetch<{ availability: DateAvailability }>(`/api/reservations/availability/next?from=${from}`);
+      const experienceQuery = initialExperienceId
+        ? `&experienceId=${encodeURIComponent(initialExperienceId)}`
+        : '';
+      const data = await apiFetch<{ availability: DateAvailability }>(
+        `/api/reservations/availability/next?from=${from}${experienceQuery}`
+      );
       const date = parseDateKey(data.availability.date);
       setMonthCursor(new Date(date.getFullYear(), date.getMonth(), 1));
       setSelectedDate(data.availability.date);
@@ -506,7 +533,9 @@ export default function ReservationFlow() {
           <div className="border-b border-emerald-950/10 bg-[#07180f] px-4 py-5 text-white sm:px-6">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-200">Sistema de reservas</p>
             <h1 className="mt-2 font-serif text-3xl font-black tracking-tight sm:text-4xl">
-              Reservá tu tour de avistamiento de aves
+              {initialExperienceId && selectedExperience
+                ? `Reservá ${selectedExperience.name}`
+                : 'Reservá tu tour de avistamiento de aves'}
             </h1>
           </div>
 
@@ -539,6 +568,37 @@ export default function ReservationFlow() {
           </div>
 
           <div className="p-4 sm:p-6">
+            {initialExperienceId && selectedExperience && step === 'date' && (
+              <article className="mb-6 overflow-hidden rounded-[1.5rem] border border-emerald-950/10 bg-[#f8f3e8] sm:grid sm:grid-cols-[13rem_1fr]">
+                <div className="relative min-h-48 bg-emerald-950 sm:min-h-full">
+                  <Image
+                    src={selectedExperience.image}
+                    alt={`Naturaleza durante ${selectedExperience.name}`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 208px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-5">
+                  <p className="text-xs font-black uppercase tracking-[0.15em] text-emerald-700">Experiencia seleccionada</p>
+                  <h2 className="mt-2 font-serif text-2xl font-black text-emerald-950">{selectedExperience.name}</h2>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{selectedExperience.shortDescription}</p>
+                  <dl className="mt-4 grid grid-cols-2 gap-2 text-sm lg:grid-cols-4">
+                    <Info label="Duración" value={durationLabel(selectedExperience.durationMinutes)} />
+                    <Info label="Dificultad" value={selectedExperience.difficulty} />
+                    <Info label="Momento" value={selectedExperience.approximateTime} />
+                    <Info
+                      label="Precio"
+                      value={
+                        selectedExperience.pricing.mode === 'private_group'
+                          ? money(selectedExperience.pricing.fixedGroupPrice ?? 0, selectedExperience.pricing.currency)
+                          : money(selectedExperience.pricing.adult, selectedExperience.pricing.currency)
+                      }
+                    />
+                  </dl>
+                </div>
+              </article>
+            )}
             {error && (
               <div role="alert" className="mb-5 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-800">
                 {error}
@@ -555,7 +615,11 @@ export default function ReservationFlow() {
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <h2 className="font-serif text-2xl font-black text-emerald-950">Seleccioná una fecha</h2>
-                    <p className="mt-1 text-sm text-slate-600">El calendario se valida nuevamente contra el servidor al seleccionar.</p>
+                    <p className="mt-1 text-sm text-slate-600">
+                      {initialExperienceId
+                        ? 'Mostramos únicamente fechas disponibles para esta experiencia.'
+                        : 'El calendario se valida nuevamente contra el servidor al seleccionar.'}
+                    </p>
                   </div>
                   <button
                     type="button"
@@ -634,9 +698,12 @@ export default function ReservationFlow() {
 
             {step === 'experience' && (
               <div>
-                <StepHeader title="Elegí una experiencia" description={`Fecha seleccionada: ${longDate(selectedDate)}`} />
-                <div className="mt-6 grid gap-4 lg:grid-cols-3">
-                  {experiences.map((experience) => {
+                <StepHeader
+                  title={initialExperienceId ? 'Tu experiencia seleccionada' : 'Elegí una experiencia'}
+                  description={`Fecha seleccionada: ${longDate(selectedDate)}`}
+                />
+                <div className={`mt-6 grid gap-4 ${initialExperienceId ? 'grid-cols-1' : 'lg:grid-cols-3'}`}>
+                  {displayedExperiences.map((experience) => {
                     const availability = dateAvailability?.experiences.find((item) => item.experienceId === experience.id);
                     const selectable = availability?.state === 'available' || availability?.state === 'few_left';
                     const selected = selectedExperienceId === experience.id;
@@ -647,8 +714,14 @@ export default function ReservationFlow() {
                           selected ? 'border-emerald-900 ring-4 ring-emerald-100' : 'border-emerald-950/10'
                         }`}
                       >
-                        <div className="relative h-44 bg-emerald-950">
-                          <Image src={experience.image} alt="" fill sizes="(max-width: 1024px) 100vw, 33vw" className="object-cover" />
+                        <div className={`relative bg-emerald-950 ${initialExperienceId ? 'h-56 sm:h-72' : 'h-44'}`}>
+                          <Image
+                            src={experience.image}
+                            alt={`Naturaleza durante ${experience.name}`}
+                            fill
+                            sizes={initialExperienceId ? '(max-width: 1280px) 100vw, 900px' : '(max-width: 1024px) 100vw, 33vw'}
+                            className="object-cover"
+                          />
                         </div>
                         <div className="p-4">
                           <div className="flex items-start justify-between gap-3">
@@ -672,13 +745,21 @@ export default function ReservationFlow() {
                             />
                           </dl>
                           <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                            {experience.inclusions.slice(0, 5).map((item) => (
+                            {experience.inclusions.map((item) => (
                               <li key={item} className="flex gap-2">
                                 <span className="font-black text-emerald-700" aria-hidden="true">✓</span>
                                 {item}
                               </li>
                             ))}
                           </ul>
+                          {initialExperienceId && experience.specialRules.length > 0 && (
+                            <div className="mt-4 rounded-2xl bg-[#f8f3e8] p-4 text-sm leading-6 text-emerald-950">
+                              <p className="font-black">Información importante</p>
+                              {experience.specialRules.map((rule) => (
+                                <p key={rule} className="mt-1">{rule}</p>
+                              ))}
+                            </div>
+                          )}
                           <button
                             type="button"
                             disabled={!selectable}
@@ -690,7 +771,11 @@ export default function ReservationFlow() {
                             }}
                             className="mt-5 w-full rounded-full bg-emerald-950 px-4 py-3 text-sm font-black text-white disabled:bg-slate-200 disabled:text-slate-500"
                           >
-                            {selectable ? 'Seleccionar experiencia' : 'No disponible en esta fecha'}
+                            {selectable
+                              ? initialExperienceId
+                                ? 'Continuar con esta experiencia'
+                                : 'Seleccionar experiencia'
+                              : 'No disponible en esta fecha'}
                           </button>
                         </div>
                       </article>
@@ -910,7 +995,10 @@ export default function ReservationFlow() {
             <SummaryLine label="Fecha" value={selectedDate ? longDate(selectedDate) : 'Pendiente'} />
             <SummaryLine label="Experiencia" value={selectedExperience?.name ?? 'Pendiente'} />
             <SummaryLine label="Horario" value={selectedSlot ? `${selectedSlot.startTime} - ${selectedSlot.endTime}` : 'Pendiente'} />
-            <SummaryLine label="Participantes" value={`${participants.adults + participants.children} personas`} />
+            <SummaryLine
+              label="Participantes"
+              value={`${participants.adults + participants.children} ${participants.adults + participants.children === 1 ? 'persona' : 'personas'}`}
+            />
             {quote && (
               <div className="mt-5 rounded-2xl bg-white/10 p-4">
                 <SummaryLine label="Subtotal" value={money(quote.subtotal, quote.currency)} />

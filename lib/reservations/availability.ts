@@ -160,6 +160,7 @@ export function getDateAvailability(input: {
 export function getMonthAvailability(input: {
   year: number;
   month: number;
+  experienceId?: string;
   reservations: ReservationRecord[];
   holds: ReservationHold[];
 }): MonthAvailabilityDay[] {
@@ -169,13 +170,19 @@ export function getMonthAvailability(input: {
       reservations: input.reservations,
       holds: input.holds,
     });
-    const totalCapacity = availability.experiences.reduce((total, experience) => total + experience.totalCapacity, 0);
-    const available = availability.experiences.reduce((total, experience) => total + experience.available, 0);
+    const relevantExperiences = input.experienceId
+      ? availability.experiences.filter((experience) => experience.experienceId === input.experienceId)
+      : availability.experiences;
+    const totalCapacity = relevantExperiences.reduce((total, experience) => total + experience.totalCapacity, 0);
+    const available = relevantExperiences.reduce((total, experience) => total + experience.available, 0);
+    const state = availability.isPast
+      ? 'unavailable'
+      : combineStates(relevantExperiences.map((experience) => experience.state));
 
     return {
       date,
       day: Number(date.slice(-2)),
-      state: availability.state,
+      state,
       isToday: availability.isToday,
       isPast: availability.isPast,
       available,
@@ -186,6 +193,7 @@ export function getMonthAvailability(input: {
 
 export function findNextAvailableDate(input: {
   from: string;
+  experienceId?: string;
   reservations: ReservationRecord[];
   holds: ReservationHold[];
   maxDays?: number;
@@ -199,7 +207,10 @@ export function findNextAvailableDate(input: {
       reservations: input.reservations,
       holds: input.holds,
     });
-    if (availability.state === 'available' || availability.state === 'few_left') return availability;
+    const relevantState = input.experienceId
+      ? availability.experiences.find((experience) => experience.experienceId === input.experienceId)?.state
+      : availability.state;
+    if (relevantState === 'available' || relevantState === 'few_left') return availability;
   }
 
   return null;

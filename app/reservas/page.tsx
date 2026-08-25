@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import ReservationFlow from '@/components/reservations/ReservationFlow';
+import { reservationConfig } from '@/data/reservations';
 
 export const metadata: Metadata = {
   title: 'Reservas de birdwatching',
@@ -10,7 +11,19 @@ export const metadata: Metadata = {
   alternates: { canonical: '/reservas' },
 };
 
-export default function ReservasPage() {
+type ReservasPageProps = {
+  searchParams: Promise<{ experiencia?: string | string[] }>;
+};
+
+export default async function ReservasPage({ searchParams }: ReservasPageProps) {
+  const params = await searchParams;
+  const requestedExperience = Array.isArray(params.experiencia) ? params.experiencia[0] : params.experiencia;
+  const initialExperienceId = reservationConfig.experiences.some(
+    (experience) => experience.enabled && experience.id === requestedExperience
+  )
+    ? requestedExperience
+    : undefined;
+
   return (
     <main className="min-h-screen bg-[#f8f3e8] text-slate-950">
       <header className="border-b border-emerald-950/10 bg-[#07180f] text-white">
@@ -40,8 +53,7 @@ export default function ReservasPage() {
         </div>
       </header>
 
-      <ReservationFlow />
+      <ReservationFlow initialExperienceId={initialExperienceId} />
     </main>
   );
 }
-

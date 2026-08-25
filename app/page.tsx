@@ -66,6 +66,7 @@ const content = {
     experiencesIncludesLabel: 'Incluye',
     experiences: [
       {
+        id: 'self-guided-classic',
         title: 'Autoguiado Clásico',
         eyebrow: 'Explorá por tu cuenta',
         duration: 'A su propio ritmo',
@@ -78,10 +79,11 @@ const content = {
           { icon: '☕', label: 'Cafetería disponible' },
           { icon: '🥾', label: 'Recorrido a su propio ritmo' },
         ],
-        cta: 'Consultar disponibilidad',
+        cta: 'Reservar experiencia',
         featured: false,
       },
       {
+        id: 'guided-classic',
         title: 'Guiado Clásico',
         eyebrow: 'Con interpretación naturalista',
         duration: '2 horas y media',
@@ -97,10 +99,11 @@ const content = {
           { icon: '🕒', label: 'Duración: 2 horas y media' },
           { icon: '🍍', label: 'Frutas' },
         ],
-        cta: 'Reservar guiado',
+        cta: 'Reservar experiencia',
         featured: false,
       },
       {
+        id: 'private-birdwatching',
         title: 'Privado',
         eyebrow: 'Experiencia premium',
         duration: '3 horas',
@@ -116,7 +119,7 @@ const content = {
           { icon: '🕒', label: 'Duración: 3 horas' },
           { icon: '🍍', label: 'Frutas' },
         ],
-        cta: 'Solicitar experiencia privada',
+        cta: 'Reservar experiencia',
         featured: true,
       },
     ],
@@ -231,6 +234,7 @@ const content = {
     experiencesIncludesLabel: 'Includes',
     experiences: [
       {
+        id: 'self-guided-classic',
         title: 'Classic Self-Guided',
         eyebrow: 'Explore on your own',
         duration: 'At your own pace',
@@ -243,10 +247,11 @@ const content = {
           { icon: '☕', label: 'Coffee shop available' },
           { icon: '🥾', label: 'Walk at your own pace' },
         ],
-        cta: 'Check availability',
+        cta: 'Book experience',
         featured: false,
       },
       {
+        id: 'guided-classic',
         title: 'Classic Guided',
         eyebrow: 'With naturalist interpretation',
         duration: '2.5 hours',
@@ -262,10 +267,11 @@ const content = {
           { icon: '🕒', label: 'Duration: 2.5 hours' },
           { icon: '🍍', label: 'Fresh fruit' },
         ],
-        cta: 'Book guided tour',
+        cta: 'Book experience',
         featured: false,
       },
       {
+        id: 'private-birdwatching',
         title: 'Private',
         eyebrow: 'Premium experience',
         duration: '3 hours',
@@ -281,7 +287,7 @@ const content = {
           { icon: '🕒', label: 'Duration: 3 hours' },
           { icon: '🍍', label: 'Fresh fruit' },
         ],
-        cta: 'Request private experience',
+        cta: 'Book experience',
         featured: true,
       },
     ],
@@ -612,16 +618,14 @@ export default function Home() {
                   ))}
                 </ul>
                 <div className="mt-8 flex flex-1 items-end">
-                  <a
-                    href={whatsappUrl}
+                  <Link
+                    href={`/reservas?experiencia=${experience.id}`}
                     className={`btn btn-small w-full justify-center text-center ${
                       experience.featured ? '' : 'btn-glass'
                     }`}
-                    target="_blank"
-                    rel="noreferrer"
                   >
                     {experience.cta}
-                  </a>
+                  </Link>
                 </div>
               </article>
             ))}
